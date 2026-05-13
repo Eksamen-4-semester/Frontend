@@ -2,7 +2,9 @@ using System;
 using Frontend;
 using Frontend.Components;
 using Blazored.LocalStorage;
+using Frontend.Services;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -17,19 +19,52 @@ builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddLocalStorageServices();
 
 // Custom services
-builder.Services.AddScoped<Frontend.Services.SessionService>();
-builder.Services.AddScoped<Frontend.Services.UserService>();
+builder.Services.AddScoped<SessionService>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<AnalyticsService>();
+builder.Services.AddScoped<OnlineService>();
+builder.Services.AddScoped<TrainerBookingService>();
+builder.Services.AddScoped<MembershipService>();
+
+var userClientUrl = Environment.GetEnvironmentVariable("USERSERVICE_URL");
+if (string.IsNullOrEmpty(userClientUrl))
+    throw new Exception("UserClientUrl is not set");
+var sessionClientUrl = Environment.GetEnvironmentVariable("SESSIONSERVICE_URL");
+if (string.IsNullOrEmpty(sessionClientUrl))
+    throw new Exception("SessionClientUrl is not set");
+var authClientUrl = Environment.GetEnvironmentVariable("AUTHSERVICE_URL");
+if (string.IsNullOrEmpty(authClientUrl))
+    throw new Exception("AuthClientUrl is not set");
+var membershipClientUrl = Environment.GetEnvironmentVariable("MEMBERSHIPSERVICE_URL");
+if (string.IsNullOrEmpty(membershipClientUrl))
+    throw new Exception("MembershipClientUrl is not set");
 
 // HttpClientFactory
 builder.Services.AddHttpClient("UserClient", client =>
 {
-    client.BaseAddress = new Uri("http://localhost:4000/userservices/");
+    client.BaseAddress = new Uri(userClientUrl);
 });
 
 builder.Services.AddHttpClient("SessionClient", client =>
 {
-    client.BaseAddress = new Uri("http://localhost:4000/sessionservices/");
+    client.BaseAddress = new Uri(sessionClientUrl);
 });
+
+builder.Services.AddHttpClient("AuthClient", client =>
+{
+    client.BaseAddress = new Uri(authClientUrl);
+});
+
+builder.Services.AddHttpClient("MembershipClient", client =>
+{
+    client.BaseAddress = new Uri(membershipClientUrl);
+});
+
+// using Microsoft.AspNetCore.DataProtection;
+
+// Gemmer til antiforgery tokens
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo("/root/.aspnet/DataProtection-Keys"));
 
 var app = builder.Build();
 

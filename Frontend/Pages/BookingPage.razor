@@ -7,6 +7,10 @@
 @inject SessionService SessionService
 @inject UserService UserService
 
+<!-- Denne linje er til for at stoppe pagen i at crashe. Når man accesser 'localstorage' i 'OnInitialised'
+    fejler den hvis rendermode er sat til 'interactive server'-->
+@rendermode InteractiveServer
+
 <div class="booking-wrap">
 
     <div class="booking-hero">
@@ -225,11 +229,30 @@
 
     private int currentTrainerId = 1;
 
-    protected override async Task OnInitializedAsync()
-    {
-        currentRole = await UserService.GetCurrentRole();
+    private bool isLoaded;
+    private string? errorMessage;
 
-        await LoadData();
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        try
+        {
+            currentRole = await UserService.GetCurrentRole();
+
+            await LoadData();
+
+            isLoaded = true;
+
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.ToString();
+            isLoaded = true;
+            StateHasChanged();
+        }
     }
 
     private async Task LoadData()

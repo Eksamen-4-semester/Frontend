@@ -23,7 +23,7 @@ public class UserService
     public async Task<bool> LoginMember(LoginDto loginDto)
     {
         var response = await _httpClient.PostAsJsonAsync(
-            "api/Member/login",
+            "Member/login",
             loginDto);
 
         if (!response.IsSuccessStatusCode)
@@ -39,7 +39,7 @@ public class UserService
     public async Task<bool> LoginAdmin(LoginDto loginDto)
     {
         var response = await _httpClient.PostAsJsonAsync(
-            "api/Admin/login",
+            "Admin/login",
             loginDto);
 
         if (!response.IsSuccessStatusCode)
@@ -55,7 +55,7 @@ public class UserService
     public async Task<bool> LoginTrainer(LoginDto loginDto)
     {
         var response = await _httpClient.PostAsJsonAsync(
-            "api/PersonalTrainer/login",
+            "PersonalTrainer/login",
             loginDto);
 
         if (!response.IsSuccessStatusCode)
