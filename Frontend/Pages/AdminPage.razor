@@ -1,0 +1,261 @@
+﻿@page "/AdminPage"
+
+@using Frontend.Services
+@using Frontend.Models.Session
+
+@inject SessionService SessionService
+
+<div class="admin-wrap">
+
+    <!-- HERO -->
+
+    <div class="admin-hero">
+
+        <div>
+
+            <div class="admin-tag">
+                <span class="bi bi-shield-lock-fill"></span>
+                Admin Panel
+            </div>
+
+            <h1 class="admin-title">
+                Fitness centre & lokaler
+            </h1>
+
+            <p class="admin-sub">
+                Administrér centre og lokaler i systemet.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- GRID -->
+
+    <div class="admin-grid">
+
+        <!-- CREATE CENTER -->
+
+        <div class="admin-card">
+
+            <div class="card-top">
+
+                <div>
+
+                    <div class="card-label">
+                        Fitness center
+                    </div>
+
+                    <div class="card-title">
+                        Opret nyt center
+                    </div>
+
+                </div>
+
+                <div class="card-icon">
+                    <span class="bi bi-building"></span>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Adresse</label>
+
+                <input class="form-input"
+                       @bind="newCenter.adresse" />
+
+            </div>
+
+            <button class="main-btn"
+                    @onclick="CreateCenter">
+
+                <span class="bi bi-plus-circle"></span>
+                Opret center
+
+            </button>
+
+        </div>
+
+        <!-- CREATE ROOM -->
+
+        <div class="admin-card">
+
+            <div class="card-top">
+
+                <div>
+
+                    <div class="card-label">
+                        Lokaler
+                    </div>
+
+                    <div class="card-title">
+                        Opret lokale
+                    </div>
+
+                </div>
+
+                <div class="card-icon">
+                    <span class="bi bi-door-open"></span>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Lokale navn</label>
+
+                <input class="form-input"
+                       @bind="newRoom.RoomName" />
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Kapacitet</label>
+
+                <input class="form-input"
+                       type="number"
+                       @bind="newRoom.Capacity" />
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Fitness center</label>
+
+                <select class="form-input"
+                        @bind="newRoom.fitnessCenterId">
+
+                    @foreach (var center in centers)
+                    {
+                        <option value="@center.FitnessCenterId">
+                            @center.adresse
+                        </option>
+                    }
+
+                </select>
+
+            </div>
+
+            <button class="main-btn"
+                    @onclick="CreateRoom">
+
+                <span class="bi bi-plus-circle"></span>
+                Opret lokale
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- OVERVIEW -->
+
+    <div class="overview-card">
+
+        <div class="overview-top">
+
+            <div>
+
+                <div class="card-label">
+                    Oversigt
+                </div>
+
+                <div class="card-title">
+                    Fitness centre
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="center-list">
+
+            @foreach (var center in centers)
+            {
+                <div class="center-item">
+
+                    <div class="center-info">
+
+                        <div class="center-name">
+                            @center.adresse
+                        </div>
+
+                        <div class="center-sub">
+                            @rooms.Count(x =>
+                                x.fitnessCenterId ==
+                                center.FitnessCenterId)
+                            lokaler
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</div>
+
+@code {
+
+    private List<FitnessCenter> centers = new();
+
+    private List<Room> rooms = new();
+
+    private FitnessCenter newCenter = new();
+
+    private Room newRoom = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        centers =
+            await SessionService.GetFitnessCenters();
+
+        rooms =
+            await SessionService.GetRooms();
+
+        if (centers.Any() &&
+            newRoom.fitnessCenterId == 0)
+        {
+            newRoom.fitnessCenterId =
+                centers.First().FitnessCenterId;
+        }
+    }
+
+    private async Task CreateCenter()
+    {
+        if (string.IsNullOrWhiteSpace(
+                newCenter.adresse))
+            return;
+
+        await SessionService.CreateCenter(
+            newCenter);
+
+        newCenter = new();
+
+        await LoadData();
+    }
+
+    private async Task CreateRoom()
+    {
+        if (string.IsNullOrWhiteSpace(
+                newRoom.RoomName))
+            return;
+
+        await SessionService.CreateRoom(
+            newRoom);
+
+        newRoom = new();
+
+        await LoadData();
+    }
+}

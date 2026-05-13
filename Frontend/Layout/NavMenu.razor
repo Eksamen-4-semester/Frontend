@@ -1,0 +1,97 @@
+﻿@using Frontend.Services
+@using Frontend.Services
+@inject UserService UserService
+@inject NavigationManager NavigationManager
+
+@if (isLoggedIn)
+
+{
+    <div class="top-row ps-3 navbar navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="">FitLife</a>
+            <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+
+    <div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+        <nav class="nav flex-column">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link d-flex align-items-center" href="Home" Match="NavLinkMatch.All">
+                    <span class="bi bi-bar-chart-fill me-3" aria-hidden="true"></span> Dashboard
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link d-flex align-items-center" href="BookingPage">
+                    <span class="bi bi-calendar-check-fill me-3" aria-hidden="true"></span> Bookings
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link d-flex align-items-center" href="TrainingPrograms">
+                    <span class="bi bi-journal-text me-3" aria-hidden="true"></span> Training Programs
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link d-flex align-items-center" href="WearablePage">
+                    <span class="bi bi-watch me-3" aria-hidden="true"></span> App/Wearable Devices
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link d-flex align-items-center" href="ProfilePage">
+                    <span class="bi bi-person-badge-fill me-3" aria-hidden="true"></span> Profile
+                </NavLink>
+            </div>
+            @if (CurrentRole == "Admin")
+            {
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link d-flex align-items-center"
+                             href="AdminPage">
+
+                        <span class="bi bi-shield-lock-fill me-3"
+                              aria-hidden="true"></span>
+
+                        Admin Panel
+
+                    </NavLink>
+                </div>
+            }
+        </nav>
+    </div>
+}
+
+@code {
+    private bool collapseNavMenu = true;
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private bool isLoggedIn = false;
+    public string? CurrentRole;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        //kører kun første gang komponenten renderes
+        if (firstRender)
+        {
+            //tjekker om bruger er logget ind via localstorage
+            //skal ligge i OnAfterRenderAsync i blazor server
+            //fordi javascript/localstorage ikke virker i OnInitializedAsync
+            isLoggedIn = await UserService.IsLoggedIn();
+
+            //henter nuværende rolle
+            CurrentRole = await UserService.GetCurrentRole();
+
+            //navigere til login siden, hvis ikke logget ind
+            if (!isLoggedIn)
+            {
+                NavigationManager.NavigateTo("/");
+            }
+
+            //opdaterer ui efter async kald
+            StateHasChanged();
+        }
+    }
+}

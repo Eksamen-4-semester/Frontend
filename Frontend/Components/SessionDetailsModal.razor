@@ -1,0 +1,162 @@
+﻿@using Frontend.Models.Session
+
+@if (IsOpen && Session is not null)
+{
+    <div class="modal-overlay">
+
+        <div class="session-modal">
+
+            <div class="modal-top">
+
+                <div>
+
+                    <div class="modal-time">
+                        @Session.StartTime.ToString("dddd")
+                    </div>
+
+                    <h2 class="modal-title">
+                        @Session.SessionName
+                    </h2>
+
+                </div>
+
+                <button class="close-btn"
+                        @onclick="OnClose">
+                    <span class="bi bi-x-lg"></span>
+                </button>
+
+            </div>
+
+            <div class="modal-info-grid">
+
+                <div class="info-card">
+
+                    <div class="info-label">
+                        Status
+                    </div>
+
+                    <div class="info-value">
+                        @Session.Status
+                    </div>
+
+                </div>
+
+                <div class="info-card">
+
+                    <div class="info-label">
+                        Kapacitet
+                    </div>
+
+                    <div class="info-value">
+                        @Session.CurrentCapacity/@Session.MaxCapacity
+                    </div>
+
+                </div>
+
+                <div class="info-card">
+
+                    <div class="info-label">
+                        Lokale
+                    </div>
+
+                    <div class="info-value">
+                        @Session.RoomId
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="session-times">
+
+                <div class="time-box">
+
+                    <div class="time-label">
+                        Start
+                    </div>
+
+                    <div class="time-value">
+                        @Session.StartTime.ToString("HH:mm")
+                    </div>
+
+                </div>
+
+                <div class="time-box">
+
+                    <div class="time-label">
+                        Slut
+                    </div>
+
+                    <div class="time-value">
+                        @Session.EndTime.ToString("HH:mm")
+                    </div>
+
+                </div>
+
+            </div>
+
+            @if (CurrentRole == "Member")
+            {
+                <button class="main-btn"
+                        @onclick="() => OnBook.InvokeAsync(Session)">
+
+                    <span class="bi bi-check-circle"></span>
+                    Book session
+
+                </button>
+            }
+
+            @if (CurrentRole == "Trainer")
+            {
+                <div class="trainer-actions">
+
+                    <button class="main-btn"
+                            @onclick="() => OnEdit.InvokeAsync(Session)">
+
+                        <span class="bi bi-pencil"></span>
+                        Rediger
+
+                    </button>
+
+                    <button class="danger-btn"
+                            @onclick="() => OnDelete.InvokeAsync(Session)">
+
+                        <span class="bi bi-trash"></span>
+                        Slet
+
+                    </button>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+}
+
+@code {
+
+    [Parameter]
+    public bool IsOpen { get; set; }
+
+    [Parameter]
+    public Session? Session { get; set; }
+
+    [Parameter]
+    public string CurrentRole { get; set; } = "";
+
+    [Parameter]
+    public int CurrentMemberId { get; set; }
+
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    [Parameter]
+    public EventCallback<Session> OnBook { get; set; }
+
+    [Parameter]
+    public EventCallback<Session> OnDelete { get; set; }
+
+    [Parameter]
+    public EventCallback<Session> OnEdit { get; set; }
+}

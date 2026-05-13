@@ -1,0 +1,44 @@
+@using BlazorBootstrap
+
+<BarChart @ref="_barChart" Height="200" />
+
+@code {
+    private BarChart _barChart = default!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender) await RenderChartAsync();
+    }
+
+    private async Task RenderChartAsync()
+    {
+        var labels = new List<string> { "Ons", "Tors", "Fre", "Lør", "Man", "Tirs", "Dag" };
+        var datasets = new List<IChartDataset>
+        {
+            new BarChartDataset
+            {
+                Data = new List<double?> { 20, 40, 15, 70, 85, 30, 25 },
+                BackgroundColor = new List<string> { "#e9ecef", "#e9ecef", "#e9ecef", "#dc3545", "#dc3545", "#e9ecef", "#e9ecef" },
+                BorderWidth = new List<double> { 0 }
+            }
+        };
+
+        var options = new BarChartOptions
+        {
+            Plugins = new BarChartPlugins { Legend = new ChartPluginsLegend { Display = false } },
+            Scales = new()
+            {
+                X = new()
+                {
+                    Grid = new() { Display = false }
+                },
+                Y = new()
+                {
+                    Ticks = new() { Display = false } // Skjul Y-aksen for at matche wireframe
+                }
+            }
+        };
+
+        await _barChart.InitializeAsync(new ChartData { Labels = labels, Datasets = datasets }, options);
+    }
+}

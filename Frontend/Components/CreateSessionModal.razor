@@ -1,0 +1,182 @@
+﻿@using Frontend.Services
+@using Frontend.Models.Session
+@using Frontend.Services
+
+@using Frontend.Models.Session
+
+@inject SessionService SessionService
+
+@if (IsOpen)
+{
+    <div class="modal-overlay">
+
+        <div class="session-modal">
+
+            <div class="modal-top">
+
+                <h2 class="modal-title">
+
+                    @(IsEditMode
+                        ? "Rediger session"
+                        : "Opret session")
+
+                </h2>
+
+                <button class="close-btn"
+                        @onclick="OnClose">
+
+                    <span class="bi bi-x-lg"></span>
+
+                </button>
+
+            </div>
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label>Session navn</label>
+
+                    <input class="form-input"
+                           @bind="model.SessionName" />
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Start tidspunkt</label>
+
+                    <input class="form-input"
+                           type="datetime-local"
+                           @bind="model.StartTime" />
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Slut tidspunkt</label>
+
+                    <input class="form-input"
+                           type="datetime-local"
+                           @bind="model.EndTime" />
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Lokale ID</label>
+
+                    <input class="form-input"
+                           type="number"
+                           @bind="model.RoomId" />
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Maks kapacitet</label>
+
+                    <input class="form-input"
+                           type="number"
+                           @bind="model.MaxCapacity" />
+
+                </div>
+
+            </div>
+
+            <button class="main-btn"
+                    @onclick="Save">
+
+                <span class="bi bi-check-circle"></span>
+
+                @(IsEditMode
+                    ? "Gem ændringer"
+                    : "Opret session")
+
+            </button>
+
+        </div>
+
+    </div>
+}
+
+@code {
+
+    [Parameter]
+    public bool IsOpen { get; set; }
+
+    [Parameter]
+    public bool IsEditMode { get; set; }
+
+    [Parameter]
+    public int TrainerId { get; set; }
+
+    [Parameter]
+    public Session? SessionToEdit { get; set; }
+
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    [Parameter]
+    public EventCallback OnSaved { get; set; }
+
+    private Session model = new()
+    {
+        SessionName = "",
+        StartTime = DateTime.Now,
+        EndTime = DateTime.Now.AddHours(1),
+        Status = TeamSessionStatus.Available
+    };
+
+    protected override void OnParametersSet()
+    {
+        if (SessionToEdit is not null)
+        {
+            model = new Session
+            {
+                SessionId = SessionToEdit.SessionId,
+                SessionName = SessionToEdit.SessionName,
+                StartTime = SessionToEdit.StartTime,
+                EndTime = SessionToEdit.EndTime,
+                InstructorId = SessionToEdit.InstructorId,
+                RoomId = SessionToEdit.RoomId,
+                CurrentCapacity = SessionToEdit.CurrentCapacity,
+                MaxCapacity = SessionToEdit.MaxCapacity,
+                Status = SessionToEdit.Status
+            };
+        }
+        else
+        {
+            model = new Session
+            {
+                SessionName = "",
+                StartTime = DateTime.Now,
+                EndTime = DateTime.Now.AddHours(1),
+                Status = TeamSessionStatus.Available
+            };
+        }
+    }
+
+    private async Task Save()
+    {
+        model.InstructorId =
+            TrainerId;
+
+        model.Status =
+            TeamSessionStatus.Available;
+
+        if (IsEditMode)
+        {
+            await SessionService.UpdateSession(
+                model.SessionId,
+                model);
+        }
+        else
+        {
+            await SessionService.CreateSession(
+                model);
+        }
+
+        await OnSaved.InvokeAsync();
+    }
+}

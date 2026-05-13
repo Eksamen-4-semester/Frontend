@@ -1,0 +1,72 @@
+@page "/TrainingPrograms"
+
+<div class="tp-wrap">
+
+    <!-- Hero Banner -->
+    <div class="tp-hero">
+        <div class="bubbles">
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+        </div>
+        <div class="tp-hero-tag">
+            <span class="bi bi-clipboard-check" aria-hidden="true"></span> Træningsprogrammer
+        </div>
+        <h1 class="tp-hero-title">Dine programmer</h1>
+        <p class="tp-hero-sub">Vælg et program og kom i gang med din træning i dag.</p>
+    </div>
+
+    <!-- Grid -->
+    <p class="tp-section-title">Alle programmer</p>
+    <div class="tp-grid">
+        @foreach (var program in programs)
+        {
+            <div class="tp-card">
+                <div class="tp-card-img" style="background: @program.Gradient;">
+                    <span class="bi @program.Icon" aria-hidden="true"></span>
+                </div>
+                <div class="tp-card-body">
+                    <div class="tp-card-name">@program.Name</div>
+                    <div class="tp-card-meta">
+                        <span class="tp-badge tp-badge-@program.DifficultyClass">
+                            <span class="bi bi-lightning-charge"></span> @program.Difficulty
+                        </span>
+                        <span class="tp-badge tp-badge-duration">
+                            <span class="bi bi-clock"></span> @program.Duration
+                        </span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+@code {
+    public class Program
+    {
+        public string Name { get; set; } = "";
+        public string Icon { get; set; } = "";
+        public string Gradient { get; set; } = "";
+        public string Difficulty { get; set; } = "";
+        public string DifficultyClass { get; set; } = "";
+        public string Duration { get; set; } = "";
+    }
+
+    private List<Program> programs = new()
+    {
+        new Program { Name = "HIIT Forbrænding",      Icon = "bi-fire",           Gradient = "linear-gradient(135deg,#c03010,#7a1a0a)", Difficulty = "Hård",   DifficultyClass = "hard",   Duration = "30 min" },
+        new Program { Name = "Løbetræning 5K",        Icon = "bi-person-walking", Gradient = "linear-gradient(135deg,#185fa5,#042c53)", Difficulty = "Mellem", DifficultyClass = "medium", Duration = "45 min" },
+        new Program { Name = "Yoga & Mindfulness",    Icon = "bi-flower1",        Gradient = "linear-gradient(135deg,#1d9e75,#04342c)", Difficulty = "Let",    DifficultyClass = "easy",   Duration = "60 min" },
+        new Program { Name = "Styrketræning",         Icon = "bi-award",          Gradient = "linear-gradient(135deg,#534ab7,#26215c)", Difficulty = "Hård",   DifficultyClass = "hard",   Duration = "50 min" },
+        new Program { Name = "Spin & Cardio",         Icon = "bi-bicycle",        Gradient = "linear-gradient(135deg,#ba7517,#412402)", Difficulty = "Mellem", DifficultyClass = "medium", Duration = "40 min" },
+        new Program { Name = "Pilates Core",          Icon = "bi-heart-pulse",    Gradient = "linear-gradient(135deg,#993556,#4b1528)", Difficulty = "Let",    DifficultyClass = "easy",   Duration = "35 min" },
+        new Program { Name = "Morgenaktivering",      Icon = "bi-sun",            Gradient = "linear-gradient(135deg,#3b6d11,#173404)", Difficulty = "Let",    DifficultyClass = "easy",   Duration = "20 min" },
+        new Program { Name = "Fleksibilitet & Stræk", Icon = "bi-arrows-expand",  Gradient = "linear-gradient(135deg,#0f6e56,#04342c)", Difficulty = "Let",    DifficultyClass = "easy",   Duration = "25 min" },
+        new Program { Name = "Avanceret Helkrop",     Icon = "bi-trophy",         Gradient = "linear-gradient(135deg,#993c1d,#4a1b0c)", Difficulty = "Hård",   DifficultyClass = "hard",   Duration = "75 min" },
+    };
+}
