@@ -1,4 +1,6 @@
-﻿namespace Frontend.Models.Session;
+﻿using System;
+
+namespace Frontend.Models.Session;
 
 public class Session //En session = En hold træning
 {

@@ -1,6 +1,10 @@
+using System;
 using Frontend;
 using Frontend.Components;
 using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 

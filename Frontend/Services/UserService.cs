@@ -2,6 +2,7 @@
 using Blazored.LocalStorage;
 using Frontend.Models.User;
 using System.Net.Http;
+using System.Threading.Tasks;
 using FitLife.Models.User;
 
 namespace Frontend.Services;
