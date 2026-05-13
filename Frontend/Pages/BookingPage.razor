@@ -1,0 +1,422 @@
+@page "/BookingPage"
+
+@using Frontend.Services
+@using Frontend.Components
+@using Frontend.Models.Session
+
+@inject SessionService SessionService
+@inject UserService UserService
+
+<div class="booking-wrap">
+
+    <div class="booking-hero">
+
+        <div class="booking-hero-content">
+
+            <div class="booking-hero-tag">
+                <span class="bi bi-calendar-event"></span>
+                Hold & Booking
+            </div>
+
+            <h1 class="booking-hero-title">
+                Book dit næste hold
+            </h1>
+
+            <p class="booking-hero-sub">
+                Få overblik over kommende holdtræninger,
+                dine bookinger og ugens aktiviteter.
+            </p>
+
+        </div>
+
+        <div class="bubbles">
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+        </div>
+
+    </div>
+
+    <div class="top-bar">
+
+        <div class="week-navigation">
+
+            <button class="nav-btn" @onclick="PrevWeek">
+                <span class="bi bi-chevron-left"></span>
+            </button>
+
+            <div class="week-label">
+                Uge @currentWeek, @currentYear
+            </div>
+
+            <button class="nav-btn" @onclick="NextWeek">
+                <span class="bi bi-chevron-right"></span>
+            </button>
+
+        </div>
+
+        <div class="top-actions">
+
+            <select class="filter-select"
+                    @bind="selectedCenterId">
+
+                <option value="0">
+                    Alle centre
+                </option>
+
+                @foreach (var center in centers)
+                {
+                    <option value="@center.FitnessCenterId">
+                        @center.adresse
+                    </option>
+                }
+
+            </select>
+
+            @if (currentRole?.Equals("Trainer", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                <button class="create-btn"
+                        @onclick="OpenCreateModal">
+
+                    <span class="bi bi-plus-circle"></span>
+                    Opret session
+
+                </button>
+            }
+
+        </div>
+
+    </div>
+
+    <div class="calendar-wrapper">
+
+        @foreach (var day in weekdays)
+        {
+            <div class="calendar-column">
+
+                <div class="calendar-day-header">
+
+                    <div class="day-name">
+                        @day.DayName
+                    </div>
+
+                    <div class="day-date">
+                        @day.Date.ToString("dd MMM")
+                    </div>
+
+                </div>
+
+                <div class="calendar-sessions">
+
+                    @foreach (var session in GetSessionsForDay(day.Date.DayOfWeek))
+                    {
+                        <div class="session-card"
+                             @onclick="() => OpenSession(session)">
+
+                            <div class="session-card-top">
+
+                                <div class="session-time">
+                                    @session.StartTime.ToString("HH:mm")
+                                </div>
+
+                                <div class="session-status @session.Status.ToString().ToLower()">
+                                    @session.Status
+                                </div>
+
+                            </div>
+
+                            <div class="session-name">
+                                @session.SessionName
+                            </div>
+
+                            <div class="session-bottom">
+
+                                <div class="session-capacity">
+                                    <span class="bi bi-people"></span>
+                                    @session.CurrentCapacity/@session.MaxCapacity
+                                </div>
+
+                                <div class="session-room">
+                                    Lokale @session.RoomId
+                                </div>
+
+                            </div>
+
+                            @if (currentRole?.Equals("Member", StringComparison.OrdinalIgnoreCase) == true && IsBooked(session))
+                            {
+                                <div class="booked-pill">
+
+                                    <span class="bi bi-check-circle-fill"></span>
+                                    Booket
+
+                                </div>
+                            }
+
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>
+
+<SessionDetailsModal
+    IsOpen="showSessionModal"
+    Session="selectedSession"
+    CurrentRole="currentRole"
+    CurrentMemberId="currentMemberId"
+    OnClose="CloseSessionModal"
+    OnBook="HandleBooking"
+    OnDelete="HandleDelete"
+    OnEdit="OpenEditModal" />
+
+<CreateSessionModal
+    IsOpen="showCreateModal"
+    TrainerId="currentTrainerId"
+    OnClose="CloseCreateModal"
+    OnSaved="HandleCreated" />
+
+<CreateSessionModal
+    IsOpen="showEditModal"
+    TrainerId="currentTrainerId"
+    IsEditMode="true"
+    SessionToEdit="selectedSession"
+    OnClose="CloseEditModal"
+    OnSaved="HandleUpdated" />
+
+@code {
+
+    private List<Session> sessions = new();
+
+    private List<Session> filteredSessions = new();
+
+    private List<Session> myBookings = new();
+
+    private List<FitnessCenter> centers = new();
+
+    private List<Room> rooms = new();
+
+    private Session? selectedSession;
+
+    private bool showSessionModal;
+
+    private bool showCreateModal;
+
+    private bool showEditModal;
+
+    private int selectedCenterId = 0;
+
+    private int currentWeek =
+        System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
+
+    private int currentYear =
+        DateTime.Now.Year;
+
+    private string? currentRole;
+
+    private int currentMemberId = 1;
+
+    private int currentTrainerId = 1;
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentRole = await UserService.GetCurrentRole();
+
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        sessions =
+            await SessionService.GetAllSessions();
+
+        centers =
+            await SessionService.GetFitnessCenters();
+
+        rooms =
+            await SessionService.GetRooms();
+
+        if (currentRole?.Equals("Member", StringComparison.OrdinalIgnoreCase) == true)
+        {
+            myBookings =
+                await SessionService.GetMemberSessions(
+                    currentMemberId);
+        }
+
+        ApplyFiltering();
+    }
+
+    private void ApplyFiltering()
+    {
+        filteredSessions = sessions;
+
+        if (currentRole?.Equals("Trainer", StringComparison.OrdinalIgnoreCase) == true)
+        {
+            filteredSessions =
+                filteredSessions
+                    .Where(x =>
+                        x.InstructorId ==
+                        currentTrainerId)
+                    .ToList();
+        }
+
+        if (selectedCenterId != 0)
+        {
+            var roomIds =
+                rooms
+                    .Where(x =>
+                        x.fitnessCenterId ==
+                        selectedCenterId)
+                    .Select(x =>
+                        x.RoomId)
+                    .ToList();
+
+            filteredSessions =
+                filteredSessions
+                    .Where(x =>
+                        roomIds.Contains(
+                            x.RoomId))
+                    .ToList();
+        }
+    }
+
+    private async Task HandleBooking(Session session)
+    {
+        await SessionService.CreateBooking(
+            currentMemberId,
+            session.SessionId);
+
+        await LoadData();
+
+        showSessionModal = false;
+    }
+
+    private async Task HandleDelete(Session session)
+    {
+        await SessionService.DeleteSession(
+            session.SessionId);
+
+        await LoadData();
+
+        showSessionModal = false;
+    }
+
+    private async Task CancelBooking(Session session)
+    {
+        var booking =
+            myBookings.FirstOrDefault(
+                x => x.SessionId ==
+                     session.SessionId);
+
+        if (booking is null)
+            return;
+
+        await SessionService.CancelBooking(
+            currentMemberId,
+            booking.SessionId);
+
+        await LoadData();
+    }
+
+    private async Task HandleCreated()
+    {
+        showCreateModal = false;
+
+        await LoadData();
+    }
+
+    private async Task HandleUpdated()
+    {
+        showEditModal = false;
+
+        await LoadData();
+    }
+
+    private void OpenSession(Session session)
+    {
+        selectedSession = session;
+
+        showSessionModal = true;
+    }
+
+    private void CloseSessionModal()
+    {
+        showSessionModal = false;
+    }
+
+    private void OpenCreateModal()
+    {
+        showCreateModal = true;
+    }
+
+    private void CloseCreateModal()
+    {
+        showCreateModal = false;
+    }
+
+    private void OpenEditModal(Session session)
+    {
+        selectedSession = session;
+
+        showSessionModal = false;
+
+        showEditModal = true;
+    }
+
+    private void CloseEditModal()
+    {
+        showEditModal = false;
+    }
+
+    private void PrevWeek()
+    {
+        currentWeek--;
+    }
+
+    private void NextWeek()
+    {
+        currentWeek++;
+    }
+
+    private List<Session> GetSessionsForDay(DayOfWeek day)
+    {
+        return filteredSessions
+            .Where(x =>
+                x.StartTime.DayOfWeek == day)
+            .OrderBy(x =>
+                x.StartTime)
+            .ToList();
+    }
+
+    private bool IsBooked(Session session)
+    {
+        return myBookings.Any(
+            x => x.SessionId ==
+                 session.SessionId);
+    }
+
+    private List<WeekDayModel> weekdays = new()
+    {
+        new() { DayName = "Mandag", Date = DateTime.Now },
+        new() { DayName = "Tirsdag", Date = DateTime.Now.AddDays(1) },
+        new() { DayName = "Onsdag", Date = DateTime.Now.AddDays(2) },
+        new() { DayName = "Torsdag", Date = DateTime.Now.AddDays(3) },
+        new() { DayName = "Fredag", Date = DateTime.Now.AddDays(4) },
+        new() { DayName = "Lørdag", Date = DateTime.Now.AddDays(5) },
+        new() { DayName = "Søndag", Date = DateTime.Now.AddDays(6) }
+    };
+
+    public class WeekDayModel
+    {
+        public string DayName { get; set; } = "";
+
+        public DateTime Date { get; set; }
+    }
+}

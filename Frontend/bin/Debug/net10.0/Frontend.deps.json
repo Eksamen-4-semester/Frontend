@@ -1,0 +1,453 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Frontend/1.0.0": {
+        "dependencies": {
+          "Blazor.Bootstrap": "3.5.0",
+          "Blazor.LocalStorage": "9.0.1",
+          "Blazored.LocalStorage": "4.5.0",
+          "Microsoft.Extensions.Http": "11.0.0-preview.4.26230.115",
+          "MongoDB.Bson": "3.8.1",
+          "MongoDB.Driver": "3.8.1"
+        },
+        "runtime": {
+          "Frontend.dll": {}
+        }
+      },
+      "Blazor.Bootstrap/3.5.0": {
+        "runtime": {
+          "lib/net10.0/BlazorBootstrap.dll": {
+            "assemblyVersion": "3.5.0.0",
+            "fileVersion": "3.5.0.0"
+          }
+        }
+      },
+      "Blazor.LocalStorage/9.0.1": {
+        "dependencies": {
+          "Blazor.Serialization": "9.0.1"
+        },
+        "runtime": {
+          "lib/net9.0/Blazor.LocalStorage.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.1.0"
+          }
+        }
+      },
+      "Blazor.Serialization/9.0.1": {
+        "runtime": {
+          "lib/net9.0/Blazor.Serialization.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.1.0"
+          }
+        }
+      },
+      "Blazored.LocalStorage/4.5.0": {
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "DnsClient/1.6.1": {
+        "runtime": {
+          "lib/net5.0/DnsClient.dll": {
+            "assemblyVersion": "1.6.1.0",
+            "fileVersion": "1.6.1.0"
+          }
+        }
+      },
+      "Microsoft.Extensions.Configuration/11.0.0-preview.4.26230.115": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "11.0.0-preview.4.26230.115",
+          "Microsoft.Extensions.Primitives": "11.0.0-preview.4.26230.115"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Configuration.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.26.23115"
+          }
+        }
+      },
+      "Microsoft.Extensions.Configuration.Abstractions/11.0.0-preview.4.26230.115": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "11.0.0-preview.4.26230.115"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.26.23115"
+          }
+        }
+      },
+      "Microsoft.Extensions.Configuration.Binder/11.0.0-preview.4.26230.115": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "11.0.0-preview.4.26230.115",
+          "Microsoft.Extensions.Configuration.Abstractions": "11.0.0-preview.4.26230.115"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Configuration.Binder.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.26.23115"
+          }
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection/11.0.0-preview.4.26230.115": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "11.0.0-preview.4.26230.115"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.26.23115"
+          }
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/11.0.0-preview.4.26230.115": {
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.26.23115"
+          }
+        }
+      },
+      "Microsoft.Extensions.Diagnostics/11.0.0-preview.4.26230.115": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "11.0.0-preview.4.26230.115",
+          "Microsoft.Extensions.Diagnostics.Abstractions": "11.0.0-preview.4.26230.115",
+          "Microsoft.Extensions.Options.ConfigurationExtensions": "11.0.0-preview.4.26230.115"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Diagnostics.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.26.23115"
+          }
+        }
+      },
+      "Microsoft.Extensions.Diagnostics.Abstractions/11.0.0-preview.4.26230.115": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "11.0.0-preview.4.26230.115",
+          "Microsoft.Extensions.Options": "11.0.0-preview.4.26230.115",
+          "System.Diagnostics.DiagnosticSource": "11.0.0-preview.4.26230.115"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Diagnostics.Abstractions.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.26.23115"
+          }
+        }
+      },
+      "Microsoft.Extensions.Http/11.0.0-preview.4.26230.115": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "11.0.0-preview.4.26230.115",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "11.0.0-preview.4.26230.115",
+          "Microsoft.Extensions.Diagnostics": "11.0.0-preview.4.26230.115",
+          "Microsoft.Extensions.Logging": "11.0.0-preview.4.26230.115",
+          "Microsoft.Extensions.Logging.Abstractions": "11.0.0-preview.4.26230.115",
+          "Microsoft.Extensions.Options": "11.0.0-preview.4.26230.115"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Http.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.26.23115"
+          }
+        }
+      },
+      "Microsoft.Extensions.Logging/11.0.0-preview.4.26230.115": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": "11.0.0-preview.4.26230.115",
+          "Microsoft.Extensions.Logging.Abstractions": "11.0.0-preview.4.26230.115",
+          "Microsoft.Extensions.Options": "11.0.0-preview.4.26230.115"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Logging.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.26.23115"
+          }
+        }
+      },
+      "Microsoft.Extensions.Logging.Abstractions/11.0.0-preview.4.26230.115": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "11.0.0-preview.4.26230.115",
+          "System.Diagnostics.DiagnosticSource": "11.0.0-preview.4.26230.115"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.26.23115"
+          }
+        }
+      },
+      "Microsoft.Extensions.Options/11.0.0-preview.4.26230.115": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "11.0.0-preview.4.26230.115",
+          "Microsoft.Extensions.Primitives": "11.0.0-preview.4.26230.115"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Options.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.26.23115"
+          }
+        }
+      },
+      "Microsoft.Extensions.Options.ConfigurationExtensions/11.0.0-preview.4.26230.115": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "11.0.0-preview.4.26230.115",
+          "Microsoft.Extensions.Configuration.Binder": "11.0.0-preview.4.26230.115",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "11.0.0-preview.4.26230.115",
+          "Microsoft.Extensions.Options": "11.0.0-preview.4.26230.115",
+          "Microsoft.Extensions.Primitives": "11.0.0-preview.4.26230.115"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Options.ConfigurationExtensions.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.26.23115"
+          }
+        }
+      },
+      "Microsoft.Extensions.Primitives/11.0.0-preview.4.26230.115": {
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Primitives.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.26.23115"
+          }
+        }
+      },
+      "MongoDB.Bson/3.8.1": {
+        "runtime": {
+          "lib/net6.0/MongoDB.Bson.dll": {
+            "assemblyVersion": "3.8.1.0",
+            "fileVersion": "3.8.1.0"
+          }
+        }
+      },
+      "MongoDB.Driver/3.8.1": {
+        "dependencies": {
+          "DnsClient": "1.6.1",
+          "MongoDB.Bson": "3.8.1",
+          "SharpCompress": "0.30.1",
+          "Snappier": "1.3.1",
+          "ZstdSharp.Port": "0.7.3"
+        },
+        "runtime": {
+          "lib/net6.0/MongoDB.Driver.dll": {
+            "assemblyVersion": "3.8.1.0",
+            "fileVersion": "3.8.1.0"
+          }
+        }
+      },
+      "SharpCompress/0.30.1": {
+        "runtime": {
+          "lib/net5.0/SharpCompress.dll": {
+            "assemblyVersion": "0.30.1.0",
+            "fileVersion": "0.30.1.0"
+          }
+        }
+      },
+      "Snappier/1.3.1": {
+        "runtime": {
+          "lib/net8.0/Snappier.dll": {
+            "assemblyVersion": "1.3.1.0",
+            "fileVersion": "1.3.1.0"
+          }
+        }
+      },
+      "System.Diagnostics.DiagnosticSource/11.0.0-preview.4.26230.115": {
+        "runtime": {
+          "lib/net10.0/System.Diagnostics.DiagnosticSource.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.26.23115"
+          }
+        }
+      },
+      "ZstdSharp.Port/0.7.3": {
+        "runtime": {
+          "lib/net7.0/ZstdSharp.dll": {
+            "assemblyVersion": "0.7.3.0",
+            "fileVersion": "0.7.3.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Frontend/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Blazor.Bootstrap/3.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-26dwbF1z84v/e0zbUb+c58k7a4NBbdTselt5T766m0vqj7Pq0wWTokfu5C6svATCUppZm8eCS6+zIduaF7Wnwg==",
+      "path": "blazor.bootstrap/3.5.0",
+      "hashPath": "blazor.bootstrap.3.5.0.nupkg.sha512"
+    },
+    "Blazor.LocalStorage/9.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QyWn9HGGKSYU7GYi3r5945oFqEW15uM5huDIXAJCaTmJtiogMaUnaORDbDfKs0drEWO0gT5ivoLPQAP99EA68w==",
+      "path": "blazor.localstorage/9.0.1",
+      "hashPath": "blazor.localstorage.9.0.1.nupkg.sha512"
+    },
+    "Blazor.Serialization/9.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-RxAfShLvrK/uZozVBAjjl05s1AwL6fSNmv1mCn4iUw629aYqNqejfEk/4tcXe+qdtkfD890MzLovvBj5HVQCYA==",
+      "path": "blazor.serialization/9.0.1",
+      "hashPath": "blazor.serialization.9.0.1.nupkg.sha512"
+    },
+    "Blazored.LocalStorage/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6nZuJwA7zNIKx83IsObiHXZb09ponJOpCClU3en+hI8ZFvrOKXeOw+H7TegQZQrvdR1n9fkrVkEBQZg8vx6ZTw==",
+      "path": "blazored.localstorage/4.5.0",
+      "hashPath": "blazored.localstorage.4.5.0.nupkg.sha512"
+    },
+    "DnsClient/1.6.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4H/f2uYJOZ+YObZjpY9ABrKZI+JNw3uizp6oMzTXwDw6F+2qIPhpRl/1t68O/6e98+vqNiYGu+lswmwdYUy3gg==",
+      "path": "dnsclient/1.6.1",
+      "hashPath": "dnsclient.1.6.1.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Configuration/11.0.0-preview.4.26230.115": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CPb3DPC6kcgx+kuSTJ55H/A6Z+IZeW++VM+UiFpiwq6eQC2Mk3gHcFpqdQoK2MjWovWYN4Sz6n1RXhLWHVB35w==",
+      "path": "microsoft.extensions.configuration/11.0.0-preview.4.26230.115",
+      "hashPath": "microsoft.extensions.configuration.11.0.0-preview.4.26230.115.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Configuration.Abstractions/11.0.0-preview.4.26230.115": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-p4WDlAkHrZjC56D4l1FtSOf+13GtJywQJoWZ6Pi6hvbZ5ZJ0/lsVkcZpft52PaF1KB+6XvwNE4NCuL/5ybeN5Q==",
+      "path": "microsoft.extensions.configuration.abstractions/11.0.0-preview.4.26230.115",
+      "hashPath": "microsoft.extensions.configuration.abstractions.11.0.0-preview.4.26230.115.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Configuration.Binder/11.0.0-preview.4.26230.115": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IOkgB4CnLUlKH+l0slH5Q+6m9pWfcCBocFPHc7czATwIx5jnVPgUMRj2gGhZtvGs1PKpeoZv7PCGK5cYIwlZzw==",
+      "path": "microsoft.extensions.configuration.binder/11.0.0-preview.4.26230.115",
+      "hashPath": "microsoft.extensions.configuration.binder.11.0.0-preview.4.26230.115.nupkg.sha512"
+    },
+    "Microsoft.Extensions.DependencyInjection/11.0.0-preview.4.26230.115": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-v+F34r5W5XgR95xG0Te2KyYmCDnkc4kljLMGEZ30WKQjAzuXz/pLTEvsRNYxNJUzfKPI0H4oqLglyHZkCe1lYw==",
+      "path": "microsoft.extensions.dependencyinjection/11.0.0-preview.4.26230.115",
+      "hashPath": "microsoft.extensions.dependencyinjection.11.0.0-preview.4.26230.115.nupkg.sha512"
+    },
+    "Microsoft.Extensions.DependencyInjection.Abstractions/11.0.0-preview.4.26230.115": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8lCRTWtFbIM5DTZ5JaPJDbNNEUsPGDq8TteHzs5yIzZqTa15vNPacJFKA+Li1FRtvW/A96nmf1rIEJcxiuDRBg==",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/11.0.0-preview.4.26230.115",
+      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.11.0.0-preview.4.26230.115.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Diagnostics/11.0.0-preview.4.26230.115": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-L1+sxK5JT7X5jvZ0RInbDnyJZG9rkp4cbgzoL0aGRUOOMp3PkgCcUjAUhAprxBu9LgGdeqZg7JratDMHS1YN/Q==",
+      "path": "microsoft.extensions.diagnostics/11.0.0-preview.4.26230.115",
+      "hashPath": "microsoft.extensions.diagnostics.11.0.0-preview.4.26230.115.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Diagnostics.Abstractions/11.0.0-preview.4.26230.115": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-A5ksai6JMv2acx16rfqh8slTZrhcPN/cgf88WLnR1HziyTIVhOwhsuWx/DSA0rwN6qQNsUCQJCbqkvbauT/COw==",
+      "path": "microsoft.extensions.diagnostics.abstractions/11.0.0-preview.4.26230.115",
+      "hashPath": "microsoft.extensions.diagnostics.abstractions.11.0.0-preview.4.26230.115.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Http/11.0.0-preview.4.26230.115": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HTY8+4kSEcmghrSTifim/cwZ4hQkniUr1+c1OMLHS1DJ2d7R9FFQ/t7Wf/MYTRHlB85ng9hMQNMY/PWTIfEmKQ==",
+      "path": "microsoft.extensions.http/11.0.0-preview.4.26230.115",
+      "hashPath": "microsoft.extensions.http.11.0.0-preview.4.26230.115.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Logging/11.0.0-preview.4.26230.115": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EpZS5qqhsNXwgeSCl2m1VkysA+pTh3qlhyjkjiu0peZt/V7IyANJXQQUuv3y2kp/jzd9XdfzuUJU0Fgp7rcDGg==",
+      "path": "microsoft.extensions.logging/11.0.0-preview.4.26230.115",
+      "hashPath": "microsoft.extensions.logging.11.0.0-preview.4.26230.115.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Logging.Abstractions/11.0.0-preview.4.26230.115": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-W5LkYolc6E6j5gscomfAZ0QAjxTR4yrcgnNKuSKT9rx5umHIgmaN+uVEZJAoEXNxa3cP6KsgwzGcZQOQ2mzb/g==",
+      "path": "microsoft.extensions.logging.abstractions/11.0.0-preview.4.26230.115",
+      "hashPath": "microsoft.extensions.logging.abstractions.11.0.0-preview.4.26230.115.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Options/11.0.0-preview.4.26230.115": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-G/dimrhqVHNqdl5c+QjetDU53tQeeU6vPyzYqEKBeYNU8ZFYf4AP2YvNliTVxVY/6c1dZdCpLTm5NKR+Qa+O0w==",
+      "path": "microsoft.extensions.options/11.0.0-preview.4.26230.115",
+      "hashPath": "microsoft.extensions.options.11.0.0-preview.4.26230.115.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Options.ConfigurationExtensions/11.0.0-preview.4.26230.115": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9QNxho6sxC4RXafVZGWzYq6KcYVpp1FkHtL+HJ967UNyUjhOWnGKMM0dPXkHKtlZ/0GGEDqnBDun0kuF633a6g==",
+      "path": "microsoft.extensions.options.configurationextensions/11.0.0-preview.4.26230.115",
+      "hashPath": "microsoft.extensions.options.configurationextensions.11.0.0-preview.4.26230.115.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Primitives/11.0.0-preview.4.26230.115": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YGEd1YyLGKQrZ04EFQyINY03GPkpZ4MuZrZBGKGX+K/yzsvINC1ApwIm0l7QyR9vyV2Ekrf4HAEK2lSLgw80Kw==",
+      "path": "microsoft.extensions.primitives/11.0.0-preview.4.26230.115",
+      "hashPath": "microsoft.extensions.primitives.11.0.0-preview.4.26230.115.nupkg.sha512"
+    },
+    "MongoDB.Bson/3.8.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-b4jm2QxBQcB3zBBM+l0Jdjmn8TYBB+J0QDNaJypkmR1qDC6v5w8IMeYaFPvn/kqo0PvCUGVSQkXm0nVCBjjNYg==",
+      "path": "mongodb.bson/3.8.1",
+      "hashPath": "mongodb.bson.3.8.1.nupkg.sha512"
+    },
+    "MongoDB.Driver/3.8.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UgmjqgJdxiiiDedoYZBBcYKjblS4I8RvxIF5rZmDQN97xAhRVolN5q70LzkamKwbrDLt944+24eD3uL96A6Ozg==",
+      "path": "mongodb.driver/3.8.1",
+      "hashPath": "mongodb.driver.3.8.1.nupkg.sha512"
+    },
+    "SharpCompress/0.30.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XqD4TpfyYGa7QTPzaGlMVbcecKnXy4YmYLDWrU+JIj7IuRNl7DH2END+Ll7ekWIY8o3dAMWLFDE1xdhfIWD1nw==",
+      "path": "sharpcompress/0.30.1",
+      "hashPath": "sharpcompress.0.30.1.nupkg.sha512"
+    },
+    "Snappier/1.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DOdDQiO8YZ5rBtVLY+6CmR1yp9WYoJRgEEktPBrR0tEj9QO2djA/zv0O3DX0OZpEAfosbY8pytQ9tQUogwQsEA==",
+      "path": "snappier/1.3.1",
+      "hashPath": "snappier.1.3.1.nupkg.sha512"
+    },
+    "System.Diagnostics.DiagnosticSource/11.0.0-preview.4.26230.115": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7p7Zo+D+Mcqb9IJaAQsAvK5ZsdC952Xy5nZn28EeWHcNdR26vcGLh+WF57KyVqEydpA2AbQwrQtZEF02yX48Pw==",
+      "path": "system.diagnostics.diagnosticsource/11.0.0-preview.4.26230.115",
+      "hashPath": "system.diagnostics.diagnosticsource.11.0.0-preview.4.26230.115.nupkg.sha512"
+    },
+    "ZstdSharp.Port/0.7.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-U9Ix4l4cl58Kzz1rJzj5hoVTjmbx1qGMwzAcbv1j/d3NzrFaESIurQyg+ow4mivCgkE3S413y+U9k4WdnEIkRA==",
+      "path": "zstdsharp.port/0.7.3",
+      "hashPath": "zstdsharp.port.0.7.3.nupkg.sha512"
+    }
+  }
+}

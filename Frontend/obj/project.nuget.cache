@@ -1,0 +1,47 @@
+{
+  "version": 2,
+  "dgSpecHash": "tjAYQBDob4s=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\umutn\\RiderProjects\\4semestereksamen\\Frontend\\Frontend\\Frontend.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\umutn\\.nuget\\packages\\blazor.bootstrap\\3.5.0\\blazor.bootstrap.3.5.0.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\blazor.localstorage\\9.0.1\\blazor.localstorage.9.0.1.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\blazor.serialization\\9.0.1\\blazor.serialization.9.0.1.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\blazored.localstorage\\4.5.0\\blazored.localstorage.4.5.0.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\microsoft.aspnetcore.app.internal.assets\\10.0.2\\microsoft.aspnetcore.app.internal.assets.10.0.2.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\microsoft.extensions.configuration\\11.0.0-preview.4.26230.115\\microsoft.extensions.configuration.11.0.0-preview.4.26230.115.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\11.0.0-preview.4.26230.115\\microsoft.extensions.configuration.abstractions.11.0.0-preview.4.26230.115.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\microsoft.extensions.configuration.binder\\11.0.0-preview.4.26230.115\\microsoft.extensions.configuration.binder.11.0.0-preview.4.26230.115.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\11.0.0-preview.4.26230.115\\microsoft.extensions.dependencyinjection.11.0.0-preview.4.26230.115.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\11.0.0-preview.4.26230.115\\microsoft.extensions.dependencyinjection.abstractions.11.0.0-preview.4.26230.115.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\microsoft.extensions.diagnostics\\11.0.0-preview.4.26230.115\\microsoft.extensions.diagnostics.11.0.0-preview.4.26230.115.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\microsoft.extensions.diagnostics.abstractions\\11.0.0-preview.4.26230.115\\microsoft.extensions.diagnostics.abstractions.11.0.0-preview.4.26230.115.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\microsoft.extensions.http\\11.0.0-preview.4.26230.115\\microsoft.extensions.http.11.0.0-preview.4.26230.115.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\microsoft.extensions.logging\\11.0.0-preview.4.26230.115\\microsoft.extensions.logging.11.0.0-preview.4.26230.115.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\11.0.0-preview.4.26230.115\\microsoft.extensions.logging.abstractions.11.0.0-preview.4.26230.115.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\microsoft.extensions.options\\11.0.0-preview.4.26230.115\\microsoft.extensions.options.11.0.0-preview.4.26230.115.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\microsoft.extensions.options.configurationextensions\\11.0.0-preview.4.26230.115\\microsoft.extensions.options.configurationextensions.11.0.0-preview.4.26230.115.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\microsoft.extensions.primitives\\11.0.0-preview.4.26230.115\\microsoft.extensions.primitives.11.0.0-preview.4.26230.115.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\mongodb.bson\\3.8.1\\mongodb.bson.3.8.1.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\mongodb.driver\\3.8.1\\mongodb.driver.3.8.1.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\sharpcompress\\0.30.1\\sharpcompress.0.30.1.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\snappier\\1.3.1\\snappier.1.3.1.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\system.diagnostics.diagnosticsource\\11.0.0-preview.4.26230.115\\system.diagnostics.diagnosticsource.11.0.0-preview.4.26230.115.nupkg.sha512",
+    "C:\\Users\\umutn\\.nuget\\packages\\zstdsharp.port\\0.7.3\\zstdsharp.port.0.7.3.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "message": "Package 'SharpCompress' 0.30.1 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-6c8g-7p36-r338",
+      "projectPath": "C:\\Users\\umutn\\RiderProjects\\4semestereksamen\\Frontend\\Frontend\\Frontend.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\umutn\\RiderProjects\\4semestereksamen\\Frontend\\Frontend\\Frontend.csproj",
+      "libraryId": "SharpCompress",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+@page "/Home"
+@using Frontend.Components
+
+<div class="container-fluid p-4" style="background-color: #f4f7f9; min-height: 100vh;">
+    
+    <div class="welcome-banner d-flex justify-content-between align-items-center mb-4 p-4 rounded-4 shadow-sm">
+        <div class="welcome-text">
+            <span class="text-muted small fw-bold text-uppercase">Oversigt</span>
+            <h2 class="fw-bold m-0">Velkommen tilbage, Thanushan! 👋</h2>
+            <p class="text-muted mb-0">Her er hvad der er sket med din træning i dag.</p>
+        </div>
+        <div class="dashboard-image-container">
+            <img src="Images/DashboardImage.png" alt="Profil" class="profile-img" />
+        </div>
+        <div class="bubbles">
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+        </div>
+    </div>
+    
+    <!-- Top Stats Row -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-2">
+            <StatCard Title="Træningstid" Value="315" Unit="min" Icon="bi-stopwatch" Color="#28a745" TrendUp="true" TrendValue="+12%" />
+        </div>
+        <div class="col-md-2">
+            <StatCard Title="Kalorier" Value="2.450" Unit="kcal" Icon="bi-fire" Color="#fd7e14" TrendUp="false" TrendValue="-5%" />
+        </div>
+        <div class="col-md-2">
+            <StatCard Title="Træningspas" Value="6" Unit="pas" Icon="bi-lightning-charge" Color="#ffc107" TrendUp="true" TrendValue="+2" />
+        </div>
+        <div class="col-md-2">
+            <StatCard Title="Puls Gns." Value="132" Unit="bpm" Icon="bi-heart-pulse" Color="#dc3545" TrendUp="true" TrendValue="stabil" />
+        </div>
+        <div class="col-md-2">
+            <StatCard Title="Skridt" Value="8.240" Unit="" Icon="bi-person-walking" Color="#6610f2" TrendUp="true" TrendValue="+8%" />
+        </div>
+        <div class="col-md-2">
+            <StatCard Title="Wellness" Value="78" Unit="/100" Icon="bi-star" Color="#d63384" TrendUp="true" TrendValue="+3" />
+        </div>
+    </div>
+
+    <!-- Main Activity Row (Den mørke graf) -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm bg-dark text-white p-4 rounded-4">
+                <div class="d-flex justify-content-between mb-3">
+                    <h5 class="fw-bold">Overblik — aktivitet</h5>
+                    <select class="form-select bg-transparent text-white border-secondary w-auto">
+                        <option>Månedlig</option>
+                    </select>
+                </div>
+                <ActivityChart />
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Row (Aktivitet & Fremskridt) -->
+    <div class="row g-4">
+        <div class="col-md-7">
+            <div class="card border-0 shadow-sm p-4 h-100 rounded-4">
+                <h5 class="fw-bold mb-3">Aktivitet — 7 dage</h5>
+                <WeeklyActivity />
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card border-0 shadow-sm p-4 h-100 rounded-4">
+                <div class="d-flex justify-content-between">
+                    <h5 class="fw-bold">Fremskridt</h5>
+                    <a href="#" class="text-danger small fw-bold text-decoration-none">Se alle →</a>
+                </div>
+                <ul class="list-unstyled mt-3">
+                    <li class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="small">LøbsDistance</span>
+                            <span class="fw-bold">32,4 km</span>
+                        </div>
+                        <div class="progress" style="height: 6px;">
+                            <div class="progress-bar bg-success" style="width: 80%"></div>
+                        </div>
+                    </li>
+                    <!-- Flere fremskridt her... -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+

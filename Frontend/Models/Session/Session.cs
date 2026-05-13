@@ -1,0 +1,32 @@
+﻿namespace Frontend.Models.Session;
+
+public class Session //En session = En hold træning
+{
+    public int SessionId { get; set; }
+    
+    public string SessionName { get; set; }
+
+    public DateTime StartTime { get; set; }
+
+    public DateTime EndTime { get; set; }
+
+    public int InstructorId { get; set; } //Der kan kun være en instruktør på en hold træning
+
+    public int RoomId { get; set; }
+
+    public int CurrentCapacity { get; set; }
+    
+    public int MaxCapacity { get; set; }
+
+    public TeamSessionStatus Status { get; set; }
+}
+public enum TeamSessionStatus
+{
+    Cancelled,
+    Available,
+    Full
+}
+
+//tip
+// Man kan søge for antal af tilmeldte i en session ved at søge
+// Hvor mange bookinger har x som sessionId

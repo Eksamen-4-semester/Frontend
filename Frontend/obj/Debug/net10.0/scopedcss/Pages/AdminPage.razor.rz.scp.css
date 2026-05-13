@@ -1,0 +1,279 @@
+.admin-wrap[b-3rhvsh8qh4] {
+    padding: 1.5rem;
+
+    min-height: 100vh;
+
+    background:
+            #f4f7f9;
+}
+
+/* HERO */
+
+.admin-hero[b-3rhvsh8qh4] {
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+            radial-gradient(
+                    ellipse at 25% 55%,
+                    #7a1a0a 0%,
+                    #3d0c04 45%,
+                    #0f0503 100%
+            );
+
+    border-radius: 24px;
+
+    padding: 2rem 2.5rem;
+
+    margin-bottom: 1.5rem;
+}
+
+.admin-tag[b-3rhvsh8qh4] {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    letter-spacing: .08em;
+
+    text-transform: uppercase;
+
+    color: #f09575;
+
+    margin-bottom: 12px;
+}
+
+.admin-title[b-3rhvsh8qh4] {
+    margin: 0;
+
+    color: white;
+
+    font-size: 34px;
+    font-weight: 700;
+
+    margin-bottom: 8px;
+}
+
+.admin-sub[b-3rhvsh8qh4] {
+    margin: 0;
+
+    color: rgba(255,255,255,.6);
+
+    font-size: 14px;
+}
+
+/* GRID */
+
+.admin-grid[b-3rhvsh8qh4] {
+    display: grid;
+
+    grid-template-columns:
+            repeat(auto-fit, minmax(320px, 1fr));
+
+    gap: 1.25rem;
+
+    margin-bottom: 1.5rem;
+}
+
+/* CARD */
+
+.admin-card[b-3rhvsh8qh4],
+.overview-card[b-3rhvsh8qh4] {
+    background: white;
+
+    border-radius: 24px;
+
+    padding: 1.5rem;
+
+    border:
+            1px solid rgba(0,0,0,.06);
+
+    box-shadow:
+            0 10px 30px rgba(0,0,0,.04);
+}
+
+.card-top[b-3rhvsh8qh4],
+.overview-top[b-3rhvsh8qh4] {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+
+    margin-bottom: 1.5rem;
+}
+
+.card-label[b-3rhvsh8qh4] {
+    font-size: 12px;
+
+    color: #999;
+
+    margin-bottom: 6px;
+}
+
+.card-title[b-3rhvsh8qh4] {
+    font-size: 22px;
+    font-weight: 700;
+
+    color: #1b1b1b;
+}
+
+.card-icon[b-3rhvsh8qh4] {
+    width: 52px;
+    height: 52px;
+
+    border-radius: 16px;
+
+    background:
+            rgba(192,48,16,.1);
+
+    color:
+            #c03010;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+}
+
+/* FORM */
+
+.form-group[b-3rhvsh8qh4] {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    margin-bottom: 1rem;
+}
+
+.form-group label[b-3rhvsh8qh4] {
+    font-size: 13px;
+    font-weight: 600;
+
+    color: #444;
+}
+
+.form-input[b-3rhvsh8qh4] {
+    width: 100%;
+
+    border:
+            1px solid rgba(0,0,0,.08);
+
+    background:
+            #f8f8f8;
+
+    border-radius: 14px;
+
+    padding:
+            .95rem 1rem;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition: .15s ease;
+}
+
+.form-input:focus[b-3rhvsh8qh4] {
+    border-color: #c03010;
+
+    background: white;
+
+    box-shadow:
+            0 0 0 4px rgba(192,48,16,.08);
+}
+
+/* BUTTON */
+
+.main-btn[b-3rhvsh8qh4] {
+    width: 100%;
+
+    border: none;
+
+    background:
+            #c03010;
+
+    color: white;
+
+    border-radius: 16px;
+
+    padding: 1rem;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    cursor: pointer;
+
+    transition: .15s ease;
+}
+
+.main-btn:hover[b-3rhvsh8qh4] {
+    background:
+            #d44020;
+}
+
+/* CENTERS */
+
+.center-list[b-3rhvsh8qh4] {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.center-item[b-3rhvsh8qh4] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1rem;
+
+    border-radius: 18px;
+
+    background:
+            #f8f8f8;
+
+    border:
+            1px solid rgba(0,0,0,.05);
+}
+
+.center-name[b-3rhvsh8qh4] {
+    font-size: 15px;
+    font-weight: 700;
+
+    color: #1b1b1b;
+
+    margin-bottom: 4px;
+}
+
+.center-sub[b-3rhvsh8qh4] {
+    font-size: 13px;
+
+    color: #888;
+}
+
+/* MOBILE */
+
+@media(max-width: 700px) {
+
+    .admin-title[b-3rhvsh8qh4] {
+        font-size: 28px;
+    }
+
+    .admin-grid[b-3rhvsh8qh4] {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-card[b-3rhvsh8qh4],
+    .overview-card[b-3rhvsh8qh4] {
+        padding: 1.2rem;
+    }
+}

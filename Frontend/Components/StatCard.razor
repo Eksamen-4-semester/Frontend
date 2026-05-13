@@ -1,0 +1,22 @@
+<div class="card h-100 shadow-sm border-0 border-top border-4" style="border-color: @Color !important;">
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <span class="text-muted small fw-bold text-uppercase">@Title</span>
+            <i class="bi @Icon text-muted"></i>
+        </div>
+        <h3 class="fw-bold my-1">@Value <span class="small text-muted fw-normal fs-6">@Unit</span></h3>
+        <div class="badge @(TrendUp ? "bg-success-subtle text-success" : "bg-danger-subtle text-danger") rounded-pill">
+            <i class="bi @(TrendUp ? "bi-arrow-up" : "bi-arrow-down")"></i> @TrendValue
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; } = "";
+    [Parameter] public string Value { get; set; } = "";
+    [Parameter] public string Unit { get; set; } = "";
+    [Parameter] public string Icon { get; set; } = "";
+    [Parameter] public string Color { get; set; } = "blue";
+    [Parameter] public bool TrendUp { get; set; }
+    [Parameter] public string TrendValue { get; set; } = "";
+}

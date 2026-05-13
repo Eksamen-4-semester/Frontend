@@ -1,0 +1,129 @@
+﻿@page "/"
+<!-- Skal hedde / så man altid kan dirigere mod / ved start af siden, så skal denne sides ln 92 nok smide dig over på "/home" / dashboard siden -->
+<!--notes note, der må ikke være noter på ln1 -->
+@using Frontend.Models.User
+@using Frontend.Services
+@using Frontend.Services
+
+@using Frontend.Models.User
+@inject UserService UserService
+@inject NavigationManager NavigationManager
+
+<div class="login-page">
+
+    <div class="login-card">
+
+        <div class="login-header">
+            <div class="login-logo">
+                <i class="bi bi-heart-pulse-fill"></i>
+            </div>
+
+            <h1>FitLife</h1>
+            <p>Log ind for at fortsætte</p>
+        </div>
+
+        <div class="login-form">
+
+            <div class="login-input-group">
+                <label>Brugernavn</label>
+
+                <input type="text"
+                       placeholder="Indtast brugernavn"
+                       @bind="Username" />
+            </div>
+
+            <div class="login-input-group">
+                <label>Adgangskode</label>
+
+                <input type="password"
+                       placeholder="Indtast din adgangskode"
+                       @bind="Password" />
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(ErrorMessage))
+            {
+                <div class="login-error">
+                    @ErrorMessage
+                </div>
+            }
+
+            <button class="login-btn"
+                    @onclick="Login"
+                    disabled="@IsLoading">
+
+                @if (IsLoading)
+                {
+                    <span>Logger ind...</span>
+                }
+                else
+                {
+                    <span>Log ind</span>
+                }
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+@code {
+
+    private string Username = "";
+    private string Password = "";
+
+    private string ErrorMessage = "";
+
+    private bool IsLoading = false;
+
+    private async Task Login()
+    {
+        ErrorMessage = "";
+        IsLoading = true;
+
+        try
+        {
+            var loginDto = new LoginDto(
+                Username,
+                Password
+            );
+
+            var success = await UserService.LoginMember(loginDto);
+
+            if (success)
+            {
+                NavigationManager.NavigateTo("/Home", true); //DERFOR, DEN SENDER EN TRUE BOOL MED, UDOVER AT SENDE USER OVER PÅ HOME SIDEN "/"
+                return;
+            }
+
+            ErrorMessage = "Forkert brugernavn eller adgangskode";
+        }
+        catch
+        {
+            ErrorMessage = "Serverfejl. Prøv igen senere.";
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        //kører kun første gang komponenten renderes
+        if (firstRender)
+        {
+            //tjekker om bruger allerede er logget ind
+            //skal ligge i OnAfterRenderAsync i blazor server
+            //fordi localstorage bruger javascript
+            if (await UserService.IsLoggedIn())
+            {
+                NavigationManager.NavigateTo("/Home", true);
+            }
+
+            //opdaterer ui efter async kald
+            StateHasChanged();
+        }
+    }
+
+}
