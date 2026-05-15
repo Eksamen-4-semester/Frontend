@@ -2,6 +2,7 @@
 using Blazored.LocalStorage;
 using Frontend.Models.User;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using FitLife.Models.User;
 
@@ -23,7 +24,7 @@ public class UserService
     public async Task<bool> LoginMember(LoginDto loginDto)
     {
         var response = await _httpClient.PostAsJsonAsync(
-            "api/Member/login",
+            "Member/login",
             loginDto);
 
         if (!response.IsSuccessStatusCode)
@@ -39,7 +40,7 @@ public class UserService
     public async Task<bool> LoginAdmin(LoginDto loginDto)
     {
         var response = await _httpClient.PostAsJsonAsync(
-            "api/Admin/login",
+            "Admin/login",
             loginDto);
 
         if (!response.IsSuccessStatusCode)
@@ -55,7 +56,7 @@ public class UserService
     public async Task<bool> LoginTrainer(LoginDto loginDto)
     {
         var response = await _httpClient.PostAsJsonAsync(
-            "api/PersonalTrainer/login",
+            "PersonalTrainer/login",
             loginDto);
 
         if (!response.IsSuccessStatusCode)
@@ -66,6 +67,20 @@ public class UserService
         await _localStorage.SetItemAsync("jwt", token);
         await _localStorage.SetItemAsync("CurrentRole", "Trainer");
         return true;
+    }
+
+    public async Task<Member?> GetMemberById(int memberId)
+    {
+        var response = await _httpClient.GetFromJsonAsync<Member?>($"{memberId}");
+        return response;
+    }
+
+    public async Task<Member?> GetMemberByJwt(string jwt)
+    {
+        _httpClient.DefaultRequestHeaders.Clear();
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
+        var response = await _httpClient.GetFromJsonAsync<Member?>("member/own");
+        return response;
     }
 
     public async Task<string?> GetCurrentRole() //kritisk for at det hele fungere. MÅ IKKE SLETTES

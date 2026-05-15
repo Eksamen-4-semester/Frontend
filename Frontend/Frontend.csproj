@@ -13,11 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="Components\Layout\MainLayout.razor" />
-    <AdditionalFiles Include="Components\Layout\NavMenu.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Blazor.Bootstrap" Version="3.5.0" />
     <PackageReference Include="Blazor.LocalStorage" Version="9.0.1" />
     <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />

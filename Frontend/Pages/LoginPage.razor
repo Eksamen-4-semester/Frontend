@@ -8,6 +8,7 @@
 @using Frontend.Models.User
 @inject UserService UserService
 @inject NavigationManager NavigationManager
+@rendermode InteractiveServer
 
 <div class="login-page">
 
@@ -79,6 +80,7 @@
 
     private async Task Login()
     {
+        Console.WriteLine("Trying to login here");
         ErrorMessage = "";
         IsLoading = true;
 
