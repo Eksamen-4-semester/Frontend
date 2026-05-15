@@ -1,8 +1,5 @@
 ﻿@using Frontend.Services
 @using Frontend.Models.Session
-@using Frontend.Services
-
-@using Frontend.Models.Session
 
 @inject SessionService SessionService
 
@@ -38,7 +35,7 @@
                     <label>Session navn</label>
 
                     <input class="form-input"
-                           @bind="model.SessionName" />
+                           @bind="_model.SessionName" />
 
                 </div>
 
@@ -48,7 +45,7 @@
 
                     <input class="form-input"
                            type="datetime-local"
-                           @bind="model.StartTime" />
+                           @bind="_model.StartTime" />
 
                 </div>
 
@@ -58,7 +55,7 @@
 
                     <input class="form-input"
                            type="datetime-local"
-                           @bind="model.EndTime" />
+                           @bind="_model.EndTime" />
 
                 </div>
 
@@ -68,7 +65,7 @@
 
                     <input class="form-input"
                            type="number"
-                           @bind="model.RoomId" />
+                           @bind="_model.RoomId" />
 
                 </div>
 
@@ -78,7 +75,7 @@
 
                     <input class="form-input"
                            type="number"
-                           @bind="model.MaxCapacity" />
+                           @bind="_model.MaxCapacity" />
 
                 </div>
 
@@ -120,7 +117,7 @@
     [Parameter]
     public EventCallback OnSaved { get; set; }
 
-    private Session model = new()
+    private Session _model = new()
     {
         SessionName = "",
         StartTime = DateTime.Now,
@@ -132,7 +129,7 @@
     {
         if (SessionToEdit is not null)
         {
-            model = new Session
+            _model = new Session
             {
                 SessionId = SessionToEdit.SessionId,
                 SessionName = SessionToEdit.SessionName,
@@ -147,7 +144,7 @@
         }
         else
         {
-            model = new Session
+            _model = new Session
             {
                 SessionName = "",
                 StartTime = DateTime.Now,
@@ -159,22 +156,22 @@
 
     private async Task Save()
     {
-        model.InstructorId =
+        _model.InstructorId =
             TrainerId;
 
-        model.Status =
+        _model.Status =
             TeamSessionStatus.Available;
 
         if (IsEditMode)
         {
             await SessionService.UpdateSession(
-                model.SessionId,
-                model);
+                _model.SessionId,
+                _model);
         }
         else
         {
             await SessionService.CreateSession(
-                model);
+                _model);
         }
 
         await OnSaved.InvokeAsync();
