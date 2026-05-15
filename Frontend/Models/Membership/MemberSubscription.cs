@@ -1,0 +1,19 @@
+﻿using MongoDB.Bson.Serialization.Attributes;
+
+namespace Frontend.Models.Membership;
+
+public class MemberSubscription
+{
+    [BsonId]
+    public int MemberSubscriptionId { get; set; }
+    public int SubscriptionId { get; set; }
+    public int MemberId { get; set; }
+    public PaymentStatus PaymentStatus { get; set; }
+}
+
+public enum PaymentStatus
+{
+    Cancelled,
+    Payed,
+    NotPayed
+}

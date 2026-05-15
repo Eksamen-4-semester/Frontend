@@ -1,0 +1,11 @@
+﻿using MongoDB.Bson.Serialization.Attributes;
+
+namespace Frontend.Models.Membership;
+
+public class AddOn
+{
+    [BsonId]
+    public int AddOnId { get; set; }
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+}

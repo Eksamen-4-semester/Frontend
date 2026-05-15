@@ -1,7 +1,9 @@
 @page "/ProfilePage"
+@using Frontend.Models.Membership
 @using Frontend.Models.User
 @using Frontend.Services
 @inject UserService UserService
+@inject MembershipService MembershipService
 @inject ILocalStorageService LocalStorage
 @inject NavigationManager Nav
 @rendermode InteractiveServer
@@ -164,40 +166,53 @@
     public class FitnessItem { public string Key { get; set; } = ""; public string Value { get; set; } = ""; public List<string> Tags { get; set; } = new(); }
 
     public Member? member;
+    public Subscription? Subscription;
+    public MemberSubscription? MemberSubscription;
 
     bool isLoaded = false;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        Console.WriteLine("OnAfterRender hit");
         if (!firstRender)
             return;
         
         var jwt = await LocalStorage.GetItemAsync<string>("jwt");
         if (string.IsNullOrWhiteSpace(jwt))
         {
+            await UserService.Logout();
             Nav.NavigateTo("/");
             return;
         }
         member = await UserService.GetMemberByJwt(jwt);
         if (member == null)
         {
+            await UserService.Logout();
             Nav.NavigateTo("/");
             return;
         }
-        
-        Console.WriteLine($"Member gotten {member.FullName}, {member.DOB}");
-
 
         infoItems = new()
         {
             new() { Key = "Navn", Value = member.FullName },
             new() { Key = "Brugernavn", Value = member.Username },
-            new() { Key = "Telefon", Value = "" },
+            new() { Key = "Telefon", Value = "45617546" },
             new() { Key = "Fødselsdato", Value = member.DOB.ToString("dd/MM/yyyy") },
             new() { Key = "Medlemskab", Value = "" },
             new() { Key = "Status", Value = member.Active.ToString()}
         };
+        
+        var subscriptionDto = await MembershipService.GetMemberSubscriptionById(member.MemberId, jwt);
+        if (subscriptionDto != null)
+        {
+            Subscription = subscriptionDto.Subscription;
+            MemberSubscription = subscriptionDto.MemberSubscription;
+            infoItems[4].Value = Subscription.Name;
+        }
+        else
+        {
+            infoItems[4].Value = "None";
+        }
+
         
         isLoaded = true;
         StateHasChanged();

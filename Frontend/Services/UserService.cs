@@ -79,8 +79,13 @@ public class UserService
     {
         _httpClient.DefaultRequestHeaders.Clear();
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
-        var response = await _httpClient.GetFromJsonAsync<Member?>("member/own");
-        return response;
+        var response = await _httpClient.GetAsync($"member/own");
+        if (response.IsSuccessStatusCode)
+        {
+            var userResponse = await _httpClient.GetFromJsonAsync<Member?>("member/own");
+            return userResponse;
+        }
+        return null;
     }
 
     public async Task<string?> GetCurrentRole() //kritisk for at det hele fungere. MÅ IKKE SLETTES
@@ -90,6 +95,7 @@ public class UserService
     
     public async Task Logout()
     {
+        await _localStorage.RemoveItemAsync("CurrentRole");
         await _localStorage.RemoveItemAsync("jwt");
     }
 
