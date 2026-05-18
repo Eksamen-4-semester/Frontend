@@ -28,16 +28,28 @@ builder.Services.AddScoped<MembershipService>();
 
 var userClientUrl = Environment.GetEnvironmentVariable("USERSERVICE_URL");
 if (string.IsNullOrEmpty(userClientUrl))
-    throw new Exception("UserClientUrl is not set");
+{
+    Console.WriteLine("UserClientUrl is not set");
+    userClientUrl = "http://localhost:5034/api/";
+}
 var sessionClientUrl = Environment.GetEnvironmentVariable("SESSIONSERVICE_URL");
 if (string.IsNullOrEmpty(sessionClientUrl))
-    throw new Exception("SessionClientUrl is not set");
+{
+    Console.WriteLine("UserClientUrl is not set");
+    sessionClientUrl = "http://localhost:5003/api/";
+}
 var authClientUrl = Environment.GetEnvironmentVariable("AUTHSERVICE_URL");
 if (string.IsNullOrEmpty(authClientUrl))
-    throw new Exception("AuthClientUrl is not set");
+{
+    Console.WriteLine("UserClientUrl is not set");
+    authClientUrl = "http://localhost:5028/api/";
+}
 var membershipClientUrl = Environment.GetEnvironmentVariable("MEMBERSHIPSERVICE_URL");
 if (string.IsNullOrEmpty(membershipClientUrl))
-    throw new Exception("MembershipClientUrl is not set");
+{
+    Console.WriteLine("UserClientUrl is not set");
+    membershipClientUrl = "http://localhost:5050/api/";
+}
 
 // HttpClientFactory
 builder.Services.AddHttpClient("UserClient", client =>
