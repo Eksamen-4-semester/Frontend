@@ -8,48 +8,96 @@
 @inject MembershipService MembershipService
 @rendermode InteractiveServer
 
-@if (loaded)
-{
-    @if (subscriptions != null)
-    {
-        <div>
-            <ol>
-                @foreach (var sub in subscriptions)
-                {
-                    <li>
-                        @sub.Name
-                        @sub.Price
-                        @sub.Description
-                    </li>
-                }
-            </ol>
+<div class="membership-page">
+    <section class="hero">
+        <div class="hero-content">
+            <span class="eyebrow">Memberships</span>
+            <h1>Choose your subscription</h1>
+            <p>
+                Pick the plan that works best for you. You can add extra features
+                and upgrades below.
+            </p>
         </div>
-        
-        <div>
-            @if (AddOns != null)
-            {
-                <ol>
-                    @foreach (var addOn in AddOns)
-                    {
-                        <li>
-                            @addOn.Name
-                            @addOn.Price
-                            @addOn.Description
-                        </li>
-                    }
-                </ol>
-            }
-            <ol>
+    </section>
 
-            </ol>
+    @if (!loaded)
+    {
+        <div class="loading-card">
+            <div class="spinner"></div>
+            <p>Loading memberships...</p>
         </div>
-        
     }
     else
     {
-        <p>An error occured, no subscriptions available right now</p>
+        @if (subscriptions != null)
+        {
+            <section class="plans-section">
+                <div class="section-heading">
+                    <h2>Subscriptions</h2>
+                    <p>Select one of our available membership plans.</p>
+                </div>
+
+                <div class="plans-grid">
+                    @foreach (var sub in subscriptions)
+                    {
+                        <article class="plan-card">
+                            <div class="plan-header">
+                                <h3>@sub.Name</h3>
+                                <div class="price">
+                                    <span>@sub.Price</span>
+                                </div>
+                            </div>
+
+                            <p class="description">
+                                @sub.Description
+                            </p>
+
+                            <button class="primary-button" type="button">
+                                Choose Plan
+                            </button>
+                        </article>
+                    }
+                </div>
+            </section>
+
+            @if (AddOns != null && AddOns.Any())
+            {
+                <section class="addons-section">
+                    <div class="section-heading">
+                        <h2>Add-ons</h2>
+                        <p>Enhance your membership with optional extras.</p>
+                    </div>
+
+                    <div class="addons-grid">
+                        @foreach (var addOn in AddOns)
+                        {
+                            <article class="addon-card">
+                                <div>
+                                    <h3>@addOn.Name</h3>
+                                    <p>@addOn.Description</p>
+                                </div>
+
+                                <div class="addon-footer">
+                                    <strong>@addOn.Price</strong>
+                                    <button class="secondary-button" type="button">
+                                        Add
+                                    </button>
+                                </div>
+                            </article>
+                        }
+                    </div>
+                </section>
+            }
+        }
+        else
+        {
+            <div class="error-card">
+                <h2>No subscriptions available</h2>
+                <p>An error occurred. Please try again later.</p>
+            </div>
+        }
     }
-}
+</div>
 
 @code {
 
