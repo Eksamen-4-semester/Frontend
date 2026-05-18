@@ -28,7 +28,7 @@ public class MembershipService
             if (subscriptionResult.IsSuccessStatusCode)
             {
                 var subscription =
-                    await _httpClient.GetFromJsonAsync<Subscription>($"subscription/{userMemberShip.SubscriptionId}");
+                    await subscriptionResult.Content.ReadFromJsonAsync<Subscription>();
                 if (subscription == null)
                     return null;
 
@@ -40,6 +40,26 @@ public class MembershipService
                 
                 return dto;
             }
+        }
+        return null;
+    }
+
+    public async Task<List<Subscription>?> GetAllSubscriptions()
+    {
+        var result = await _httpClient.GetAsync("subscription");
+        if (result.IsSuccessStatusCode)
+        {
+            return await result.Content.ReadFromJsonAsync<List<Subscription>>();
+        }
+        return null;
+    }
+
+    public async Task<List<AddOn>?> GetAllAddOns()
+    {
+        var result = await _httpClient.GetAsync("addon");
+        if (result.IsSuccessStatusCode)
+        {
+            return await result.Content.ReadFromJsonAsync<List<AddOn>>();
         }
         return null;
     }
