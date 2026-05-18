@@ -1,0 +1,46 @@
+.pcard {
+    background: #2a2a2a;
+    border: 0.5px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 1.25rem;
+}
+
+.pcard-top {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 0.5px solid rgba(255,255,255,0.06);
+}
+
+.pcard-title { font-size: 14px; font-weight: 500; color: #fff; }
+
+.pp-edit-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; color: #f09575;
+    background: #3a3a3a;
+    border: 0.5px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    padding: 3px 10px;
+    cursor: pointer;
+}
+
+.pp-edit-btn:hover { background: #444; }
+
+.pp-info-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 9px 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.06);
+    font-size: 13px;
+}
+
+.pp-info-row:last-child { border-bottom: none; padding-bottom: 0; }
+.pp-info-key { color: #888; }
+.pp-info-val { color: #fff; font-weight: 500; text-align: right; }
+
+.pp-info-val.active {
+    color: #3b6d11;
+    background: #eaf3de;
+    border-radius: 100px;
+    padding: 2px 10px;
+    font-size: 12px;
+}

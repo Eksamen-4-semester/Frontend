@@ -1,8 +1,12 @@
 @using BlazorBootstrap
+@using Frontend.Models.Analytics
+@using Frontend.Services
 
 <LineChart @ref="_lineChart" Width="100" Height="300" />
 
 @code {
+    [Parameter] public List<WeeklySessionDto> Last7Days { get; set; } = new();
+
     private LineChart _lineChart = default!;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -12,18 +16,25 @@
 
     private async Task RenderChartAsync()
     {
-        var labels = new List<string> { "Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt" };
+        var labels = Last7Days.Any()
+            ? Last7Days.Select(d => d.Day).ToList()
+            : new List<string> { "Man", "Tir", "Ons", "Tor", "Fre", "Lør", "Søn" };
+
+        var data = Last7Days.Any()
+            ? Last7Days.Select(d => (double?)d.DurationMinutes).ToList()
+            : new List<double?> { 0, 0, 0, 0, 0, 0, 0 };
+
         var datasets = new List<IChartDataset>
         {
             new LineChartDataset
             {
-                Label = "Skridt",
-                Data = new List<double?> { 4000, 4500, 4200, 6000, 5800, 7000, 9178, 8500, 8000, 9000 },
-                BackgroundColor = "rgba(220, 53, 69, 0.2)", // Rødlig gennemsigtig
-                BorderColor = "rgb(220, 53, 69)",         // Rød linje
-                Fill = true,                              // Gør det til en Area chart
-                PointBackgroundColor = new List<string> {"rgb(220, 53, 69)"},
-                Tension = 0.4                             // Gør linjen blød/buet
+                Label = "Træningstid (min)",
+                Data = data,
+                BackgroundColor = "rgba(220, 53, 69, 0.2)",
+                BorderColor = "rgb(220, 53, 69)",
+                Fill = true,
+                PointBackgroundColor = new List<string> { "rgb(220, 53, 69)" },
+                Tension = 0.4
             }
         };
 
@@ -32,17 +43,11 @@
             Plugins = new LineChartPlugins { Legend = new ChartPluginsLegend { Display = false } },
             Scales = new()
             {
-                X = new()
-                {
-                    Grid = new() { Display = false }
-                },
-                Y = new()
-                {
-                    Grid = new() { Color = "rgba(255,255,255,0.1)" }
-                }
+                X = new() { Grid = new() { Display = false } },
+                Y = new() { Grid = new() { Color = "rgba(255,255,255,0.1)" } }
             }
         };
 
         await _lineChart.InitializeAsync(new ChartData { Labels = labels, Datasets = datasets }, options);
     }
-};
+}

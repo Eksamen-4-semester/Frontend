@@ -1,5 +1,12 @@
 @page "/Home"
 @using Frontend.Components
+@using Frontend.Models.Analytics
+@using Frontend.Services
+@using System.Diagnostics
+
+@inject UserService UserService
+@inject AnalyticsService AnalyticsService
+@inject ILogger<DashBoardPage> Logger
 
 @rendermode InteractiveServer
 
@@ -12,7 +19,7 @@
             <p class="text-muted mb-0">Her er hvad der er sket med din træning i dag.</p>
         </div>
         <div class="dashboard-image-container">
-            Udkommenterer denne linje, da dette ikke virker og crasher frontend<img src="Images/DashboardImage.png" alt="Profil" class="profile-img" />
+            <img src="Images/DashboardImage.png" alt="Profil" class="profile-img" />
         </div>
         <div class="bubbles">
             <div class="bubble"></div>
@@ -52,6 +59,8 @@
         </div>
     </div>
 
+@if (_dashboard is not null)
+{
     <!-- Main Activity Row (Den mørke graf) -->
     <div class="row mb-4">
         <div class="col-12">
@@ -62,7 +71,7 @@
                         <option>Månedlig</option>
                     </select>
                 </div>
-               <ActivityChart />
+                <ActivityChart Last7Days="_dashboard.Last7Days" />
             </div>
         </div>
     </div>
@@ -72,7 +81,7 @@
         <div class="col-md-7">
             <div class="card border-0 shadow-sm p-4 h-100 rounded-4">
                 <h5 class="fw-bold mb-3">Aktivitet — 7 dage</h5>
-                <WeeklyActivity /> 
+                <WeeklyActivity Last7Days="_dashboard.Last7Days" />
             </div>
         </div>
         <div class="col-md-5">
@@ -96,5 +105,61 @@
             </div>
         </div>
     </div>
+}
+else
+{
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+}
 </div>
 
+@code {
+    private DashboardDto? _dashboard;
+    private string? _error;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            try
+            {
+                Logger.LogInformation("Getting token...");
+                var token = await UserService.GetToken();
+                if (string.IsNullOrEmpty(token))
+                {
+                    Logger.LogWarning("User is not logged in.");
+                    _error = "Du er ikke logget ind.";
+                    await InvokeAsync(StateHasChanged);
+                    return;
+                }
+
+                Logger.LogInformation("Getting member by JWT...");
+                var member = await UserService.GetMemberByJwt(token);
+                if (member == null)
+                {
+                    Logger.LogWarning("Member not found.");
+                    _error = "Medlem ikke fundet — prøv at logge ind igen.";
+                    await InvokeAsync(StateHasChanged);
+                    return;
+                }
+
+                Logger.LogInformation("Getting dashboard for memberId: {MemberId}", member.MemberId);
+                _dashboard = await AnalyticsService.GetDashboard(member.MemberId);
+                
+                if (_dashboard == null)
+                    _error = "Ingen træningsdata fundet endnu.";
+
+                await InvokeAsync(StateHasChanged);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, "An error occurred while loading the dashboard.");
+                _error = $"Fejl: {ex.Message}";
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+    }
+}

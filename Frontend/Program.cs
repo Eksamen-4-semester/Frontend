@@ -17,6 +17,7 @@ builder.Services.AddRazorComponents()
 // Local storage
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddLocalStorageServices();
+builder.Services.AddBlazorBootstrap();
 
 // Custom services
 builder.Services.AddScoped<SessionService>();
@@ -38,6 +39,9 @@ if (string.IsNullOrEmpty(authClientUrl))
 var membershipClientUrl = Environment.GetEnvironmentVariable("MEMBERSHIPSERVICE_URL");
 if (string.IsNullOrEmpty(membershipClientUrl))
     throw new Exception("MembershipClientUrl is not set");
+var analyticsClientUrl = Environment.GetEnvironmentVariable("ANALYTICSSERVICE_URL");
+if (string.IsNullOrEmpty(analyticsClientUrl))
+    throw new Exception("AnalyticsClientUrl is not set");
 
 // HttpClientFactory
 builder.Services.AddHttpClient("UserClient", client =>
@@ -58,6 +62,11 @@ builder.Services.AddHttpClient("AuthClient", client =>
 builder.Services.AddHttpClient("MembershipClient", client =>
 {
     client.BaseAddress = new Uri(membershipClientUrl);
+});
+
+builder.Services.AddHttpClient("AnalyticsClient", client =>
+{
+    client.BaseAddress = new Uri(analyticsClientUrl);
 });
 
 // using Microsoft.AspNetCore.DataProtection;

@@ -77,10 +77,23 @@ public class UserService
 
     public async Task<Member?> GetMemberByJwt(string jwt)
     {
-        _httpClient.DefaultRequestHeaders.Clear();
-        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
-        var response = await _httpClient.GetFromJsonAsync<Member?>("member/own");
-        return response;
+        try
+        {
+            _httpClient.DefaultRequestHeaders.Clear();
+            _httpClient.DefaultRequestHeaders.Authorization = 
+                new AuthenticationHeaderValue("Bearer", jwt);
+        
+            var response = await _httpClient.GetAsync("member/own");
+        
+            if (!response.IsSuccessStatusCode)
+                return null;
+            
+            return await response.Content.ReadFromJsonAsync<Member>();
+        }
+        catch (Exception)
+        {
+            return null;
+        }
     }
 
     public async Task<string?> GetCurrentRole() //kritisk for at det hele fungere. MÅ IKKE SLETTES

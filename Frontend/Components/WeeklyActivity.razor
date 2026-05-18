@@ -1,8 +1,12 @@
 @using BlazorBootstrap
+@using Frontend.Models.Analytics
+@using Frontend.Services
 
 <BarChart @ref="_barChart" Height="200" />
 
 @code {
+    [Parameter] public List<WeeklySessionDto> Last7Days { get; set; } = new();
+
     private BarChart _barChart = default!;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -12,13 +16,22 @@
 
     private async Task RenderChartAsync()
     {
-        var labels = new List<string> { "Ons", "Tors", "Fre", "Lør", "Man", "Tirs", "Dag" };
+        var labels = Last7Days.Any()
+            ? Last7Days.Select(d => d.Day).ToList()
+            : new List<string> { "Man", "Tir", "Ons", "Tor", "Fre", "Lør", "Søn" };
+
+        var data = Last7Days.Any()
+            ? Last7Days.Select(d => (double?)d.DurationMinutes).ToList()
+            : new List<double?> { 0, 0, 0, 0, 0, 0, 0 };
+
+        var colors = data.Select(d => d > 0 ? "#dc3545" : "#e9ecef").ToList();
+
         var datasets = new List<IChartDataset>
         {
             new BarChartDataset
             {
-                Data = new List<double?> { 20, 40, 15, 70, 85, 30, 25 },
-                BackgroundColor = new List<string> { "#e9ecef", "#e9ecef", "#e9ecef", "#dc3545", "#dc3545", "#e9ecef", "#e9ecef" },
+                Data = data,
+                BackgroundColor = colors,
                 BorderWidth = new List<double> { 0 }
             }
         };
@@ -28,14 +41,8 @@
             Plugins = new BarChartPlugins { Legend = new ChartPluginsLegend { Display = false } },
             Scales = new()
             {
-                X = new()
-                {
-                    Grid = new() { Display = false }
-                },
-                Y = new()
-                {
-                    Ticks = new() { Display = false } // Skjul Y-aksen for at matche wireframe
-                }
+                X = new() { Grid = new() { Display = false } },
+                Y = new() { Ticks = new() { Display = false } }
             }
         };
 

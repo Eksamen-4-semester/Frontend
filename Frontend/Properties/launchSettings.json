@@ -1,31 +1,33 @@
 {
   "$schema": "https://json.schemastore.org/launchsettings.json",
-    "profiles": {
-      "http": {
-        "commandName": "Project",
-        "dotnetRunMessages": true,
-        "launchBrowser": true,
-        "applicationUrl": "http://localhost:5077",
-        "environmentVariables": {
-          "ASPNETCORE_ENVIRONMENT": "Development",
-          "USERSERVICE_URL": "http://localhost:5001",
-          "SESSIONSERVICE_URL": "http://localhost:5002",
-          "AUTHSERVICE_URL": "http://localhost:5003",
-          "MEMBERSHIPSERVICE_URL": "http://localhost:5004"
-        }
-      },
-      "https": {
-        "commandName": "Project",
-        "dotnetRunMessages": true,
-        "launchBrowser": true,
-        "applicationUrl": "https://localhost:7062;http://localhost:5077",
-        "environmentVariables": {
-          "ASPNETCORE_ENVIRONMENT": "Development",
-          "USERSERVICE_URL": "http://localhost:5001",
-          "SESSIONSERVICE_URL": "http://localhost:5002",
-          "AUTHSERVICE_URL": "http://localhost:5003",
-          "MEMBERSHIPSERVICE_URL": "http://localhost:5004"
-        }
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:5077",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "USERSERVICE_URL": "http://localhost:4000/userservices/api/",
+        "SESSIONSERVICE_URL": "http://localhost:4000/sessionservices/api/",
+        "AUTHSERVICE_URL": "http://localhost:4000/authservices/api/",
+        "MEMBERSHIPSERVICE_URL": "http://localhost:4000/membershipservices/api/",
+        "ANALYTICSSERVICE_URL": "http://localhost:4000/analyticsservices/api/"
+      }
+    },
+    "https": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7062;http://localhost:5077",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "USERSERVICE_URL": "http://localhost:4000/userservices/api/",
+        "SESSIONSERVICE_URL": "http://localhost:4000/sessionservices/api/",
+        "AUTHSERVICE_URL": "http://localhost:4000/authservices/api/",
+        "MEMBERSHIPSERVICE_URL": "http://localhost:4000/membershipservices/api/",
+        "ANALYTICSSERVICE_URL": "http://localhost:4000/analyticsservices/api/"
       }
     }
   }
+}
