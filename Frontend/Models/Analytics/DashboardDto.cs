@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Frontend.Models.Analytics;
 
 public class DashboardDto
