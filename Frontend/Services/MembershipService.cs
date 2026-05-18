@@ -12,6 +12,20 @@ public class MembershipService
         _httpClient = httpClient.CreateClient("MembershipClient");
     }
 
+    public async Task<MemberAddOns?> GetMemberSubscriptionAddOnsByMemberSubscriptionId(int memberSubscriptionId, string jwt)
+    {
+        _httpClient.DefaultRequestHeaders.Clear();
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
+        
+        var result = await _httpClient.GetAsync($"addon/{memberSubscriptionId}");
+        if (result.IsSuccessStatusCode)
+        {
+            return await result.Content.ReadFromJsonAsync<MemberAddOns>();
+        }
+
+        return null;
+    }
+
     public async Task<MembershipUserMembershipDto?> GetMemberSubscriptionById(int memberId, string jwt)
     {
         _httpClient.DefaultRequestHeaders.Clear();

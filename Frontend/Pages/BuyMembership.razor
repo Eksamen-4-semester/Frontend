@@ -11,11 +11,11 @@
 <div class="membership-page">
     <section class="hero">
         <div class="hero-content">
-            <span class="eyebrow">Memberships</span>
-            <h1>Choose your subscription</h1>
+            <span class="eyebrow">Medlemsskaber</span>
+            <h1>Vælg DIT medlemsskab</h1>
             <p>
-                Pick the plan that works best for you. You can add extra features
-                and upgrades below.
+                Vælg det medlemsskab som virker bedst for dig. Du kan tilføje ekstra ting
+                og upgraderinger nedenunder.
             </p>
         </div>
     </section>
@@ -33,18 +33,18 @@
         {
             <section class="plans-section">
                 <div class="section-heading">
-                    <h2>Subscriptions</h2>
-                    <p>Select one of our available membership plans.</p>
+                    <h2>Medlemsskaber</h2>
+                    <p>Vælg en af vores tilgængelige medlemsskaber.</p>
                 </div>
 
                 <div class="plans-grid">
                     @foreach (var sub in subscriptions)
                     {
-                        <article class="plan-card">
+                        <article class="@(hasSubscription ? currentSubscription.SubscriptionId == sub.SubscriptionId ? "plan-card-disabled" : "plan-card" : "plan-card")">
                             <div class="plan-header">
                                 <h3>@sub.Name</h3>
                                 <div class="price">
-                                    <span>@sub.Price</span>
+                                    <span>@sub.Price kr./md</span>
                                 </div>
                             </div>
 
@@ -52,9 +52,18 @@
                                 @sub.Description
                             </p>
 
-                            <button class="primary-button" type="button">
-                                Choose Plan
-                            </button>
+                            @if (hasSubscription && currentSubscription.SubscriptionId == sub.SubscriptionId)
+                            {
+                                <button class="primary-button-disabled" type="button" disabled="disabled">
+                                    Nuværende plan
+                                </button>
+                            }
+                            else
+                            {
+                                <button class="primary-button" type="button">
+                                    Vælg Plan
+                                </button>
+                            }
                         </article>
                     }
                 </div>
@@ -64,7 +73,7 @@
             {
                 <section class="addons-section">
                     <div class="section-heading">
-                        <h2>Add-ons</h2>
+                        <h2>Ekstra</h2>
                         <p>Enhance your membership with optional extras.</p>
                     </div>
 
@@ -78,10 +87,19 @@
                                 </div>
 
                                 <div class="addon-footer">
-                                    <strong>@addOn.Price</strong>
-                                    <button class="secondary-button" type="button">
-                                        Add
-                                    </button>
+                                    <strong>@addOn.Price kr./md</strong>
+                                    @if (hasAddOns && memberAddOnIds.Contains(addOn.AddOnId))
+                                    {
+                                        <button class="secondary-button-disabled" type="button" disabled="disabled">
+                                            Købt
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button class="secondary-button" type="button">
+                                            Tilføj
+                                        </button>
+                                    }
                                 </div>
                             </article>
                         }
@@ -102,9 +120,16 @@
 @code {
 
     bool loaded = false;
+    bool hasSubscription = false;
+    bool hasAddOns = false;
     Member? member;
     List<Subscription>? subscriptions;
     List<AddOn>? AddOns;
+    
+    MemberSubscription? currentMemberSubscription;
+    Subscription? currentSubscription;
+    MemberAddOns? memberAddOns;
+    List<int> memberAddOnIds;
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -124,6 +149,21 @@
             await UserService.Logout();
             NavMan.NavigateTo("/");
             return;
+        }
+
+        var membershipDto = await MembershipService.GetMemberSubscriptionById(member.MemberId, jwt);
+        if (membershipDto is not null)
+        {
+            currentMemberSubscription = membershipDto.MemberSubscription;
+            currentSubscription = membershipDto.Subscription;
+            hasSubscription = true;
+
+            memberAddOns = await MembershipService.GetMemberSubscriptionAddOnsByMemberSubscriptionId(currentMemberSubscription.MemberSubscriptionId, jwt);
+            if (memberAddOns is not null)
+            {
+                memberAddOnIds = memberAddOns.AddOnIds;
+                hasAddOns = true;
+            }
         }
 
         var subs = await MembershipService.GetAllSubscriptions();
