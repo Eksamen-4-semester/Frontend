@@ -76,7 +76,7 @@ builder.Services.AddHttpClient("MembershipClient", client =>
 
 // Gemmer til antiforgery tokens
 builder.Services.AddDataProtection()
-    .PersistKeysToFileSystem(new DirectoryInfo("/root/.aspnet/DataProtection-Keys"));
+    .PersistKeysToFileSystem(new DirectoryInfo("DataProtection-Keys"));
 
 var app = builder.Build();
 

@@ -200,6 +200,8 @@
             new() { Key = "Medlemskab", Value = "" },
             new() { Key = "Status", Value = member.Active.ToString()}
         };
+
+        stats[2].Value = $"{(DateTime.UtcNow - member.SignUpDate.Date).Days} Days";
         
         var subscriptionDto = await MembershipService.GetMemberSubscriptionById(member.MemberId, jwt);
         if (subscriptionDto != null)
