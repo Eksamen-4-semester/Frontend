@@ -1,0 +1,90 @@
+@page "/BuyMembership"
+@using Frontend.Models.Membership
+@using Frontend.Models.User
+@using Frontend.Services
+@inject NavigationManager NavMan
+@inject ILocalStorageService LocalStorage
+@inject UserService UserService
+@inject MembershipService MembershipService
+@rendermode InteractiveServer
+
+@if (loaded)
+{
+    @if (subscriptions != null)
+    {
+        <div>
+            <ol>
+                @foreach (var sub in subscriptions)
+                {
+                    <li>
+                        @sub.Name
+                        @sub.Price
+                        @sub.Description
+                    </li>
+                }
+            </ol>
+        </div>
+        
+        <div>
+            @if (AddOns != null)
+            {
+                <ol>
+                    @foreach (var addOn in AddOns)
+                    {
+                        <li>
+                            @addOn.Name
+                            @addOn.Price
+                            @addOn.Description
+                        </li>
+                    }
+                </ol>
+            }
+            <ol>
+
+            </ol>
+        </div>
+        
+    }
+    else
+    {
+        <p>An error occured, no subscriptions available right now</p>
+    }
+}
+
+@code {
+
+    bool loaded = false;
+    Member? member;
+    List<Subscription>? subscriptions;
+    List<AddOn>? AddOns;
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+        
+        var jwt = await LocalStorage.GetItemAsync<string>("jwt");
+        if (string.IsNullOrWhiteSpace(jwt))
+        {
+            await UserService.Logout();
+            NavMan.NavigateTo("/");
+            return;
+        }
+        member = await UserService.GetMemberByJwt(jwt);
+        if (member == null)
+        {
+            await UserService.Logout();
+            NavMan.NavigateTo("/");
+            return;
+        }
+
+        var subs = await MembershipService.GetAllSubscriptions();
+        var addOns = await MembershipService.GetAllAddOns();
+        
+        subscriptions = subs;
+        AddOns = addOns;
+        loaded = true;
+        StateHasChanged();
+    }
+
+}
