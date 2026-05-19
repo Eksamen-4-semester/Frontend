@@ -1,0 +1,15 @@
+<div class="pp-stats">
+    @foreach (var stat in Stats)
+    {
+        <div class="pp-stat-card">
+            <div class="pp-stat-num">@stat.Value</div>
+            <div class="pp-stat-lbl">@stat.Label</div>
+        </div>
+    }
+</div>
+
+@code {
+    public class StatItem { public string Value { get; set; } = ""; public string Label { get; set; } = ""; }
+
+    [Parameter] public List<StatItem> Stats { get; set; } = new();
+}
