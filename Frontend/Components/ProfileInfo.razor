@@ -1,0 +1,21 @@
+<div class="pcard">
+    <div class="pcard-top">
+        <div class="pcard-title">Mine oplysninger</div>
+        <button class="pp-edit-btn">
+            <i class="bi bi-pencil" aria-hidden="true"></i> Rediger
+        </button>
+    </div>
+    @foreach (var info in InfoItems)
+    {
+        <div class="pp-info-row">
+            <span class="pp-info-key">@info.Key</span>
+            <span class="pp-info-val @(info.IsActive ? "active" : "")">@info.Value</span>
+        </div>
+    }
+</div>
+
+@code {
+    public class InfoItem { public string Key { get; set; } = ""; public string Value { get; set; } = ""; public bool IsActive { get; set; } }
+
+    [Parameter] public List<InfoItem> InfoItems { get; set; } = new();
+}

@@ -1,0 +1,36 @@
+.pp-hero {
+    background: linear-gradient(135deg, #7a1a0a 0%, #3d0c04 60%, #0f0503 100%);
+    border-radius: 20px;
+    padding: 1.75rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+}
+
+.pp-hero-left { display: flex; align-items: center; gap: 1.25rem; }
+
+.pp-avatar {
+    width: 68px; height: 68px; border-radius: 50%;
+    background: #f09575;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 500; color: #7a1a0a;
+    border: 2px solid rgba(255,255,255,0.15);
+    flex-shrink: 0;
+}
+
+.pp-name { font-size: 20px; font-weight: 500; color: #fff; margin-bottom: 6px; }
+
+.pp-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; padding: 3px 10px;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.12);
+    color: #f09575;
+    border: 0.5px solid rgba(240,149,117,0.3);
+}
+
+.pp-hero-right { text-align: right; }
+
+.pp-meta { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.8; }
+.pp-meta span { color: #fff; font-weight: 500; }

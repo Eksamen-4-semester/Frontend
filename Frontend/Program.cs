@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Frontend;
 using Frontend.Components;
 using Blazored.LocalStorage;
@@ -17,6 +18,7 @@ builder.Services.AddRazorComponents()
 // Local storage
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddLocalStorageServices();
+builder.Services.AddBlazorBootstrap();
 
 // Custom services
 builder.Services.AddScoped<SessionService>();
@@ -26,30 +28,12 @@ builder.Services.AddScoped<OnlineService>();
 builder.Services.AddScoped<TrainerBookingService>();
 builder.Services.AddScoped<MembershipService>();
 
-var userClientUrl = Environment.GetEnvironmentVariable("USERSERVICE_URL");
-if (string.IsNullOrEmpty(userClientUrl))
-{
-    Console.WriteLine("UserClientUrl is not set");
-    userClientUrl = "http://localhost:5034/api/";
-}
-var sessionClientUrl = Environment.GetEnvironmentVariable("SESSIONSERVICE_URL");
-if (string.IsNullOrEmpty(sessionClientUrl))
-{
-    Console.WriteLine("UserClientUrl is not set");
-    sessionClientUrl = "http://localhost:5003/api/";
-}
-var authClientUrl = Environment.GetEnvironmentVariable("AUTHSERVICE_URL");
-if (string.IsNullOrEmpty(authClientUrl))
-{
-    Console.WriteLine("UserClientUrl is not set");
-    authClientUrl = "http://localhost:5028/api/";
-}
-var membershipClientUrl = Environment.GetEnvironmentVariable("MEMBERSHIPSERVICE_URL");
-if (string.IsNullOrEmpty(membershipClientUrl))
-{
-    Console.WriteLine("UserClientUrl is not set");
-    membershipClientUrl = "http://localhost:5050/api/";
-}
+// Clients
+var userClientUrl = Environment.GetEnvironmentVariable("USERSERVICE_URL") ?? "http://localhost:5000";
+var sessionClientUrl = Environment.GetEnvironmentVariable("SESSIONSERVICE_URL") ?? "http://localhost:5001";
+var authClientUrl = Environment.GetEnvironmentVariable("AUTHSERVICE_URL") ?? "http://localhost:5002";
+var membershipClientUrl = Environment.GetEnvironmentVariable("MEMBERSHIPSERVICE_URL") ?? "http://localhost:5003";
+var analyticsClientUrl = Environment.GetEnvironmentVariable("ANALYTICSSERVICE_URL") ?? "http://localhost:5004";
 
 // HttpClientFactory
 builder.Services.AddHttpClient("UserClient", client =>
@@ -71,6 +55,12 @@ builder.Services.AddHttpClient("MembershipClient", client =>
 {
     client.BaseAddress = new Uri(membershipClientUrl);
 });
+
+builder.Services.AddHttpClient("AnalyticsClient", client =>
+{
+    client.BaseAddress = new Uri(analyticsClientUrl);
+});
+
 
 // using Microsoft.AspNetCore.DataProtection;
 
